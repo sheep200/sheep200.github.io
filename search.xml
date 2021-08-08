@@ -3,7 +3,8 @@
   <entry>
     <title>Welcome gods!</title>
     <url>/2021/08/03/hello-world/</url>
-    <content><![CDATA[<h2 id="Welcome-gods"><a href="#Welcome-gods" class="headerlink" title="Welcome gods!"></a>Welcome gods!</h2><h3 id="LF-mac"><a href="#LF-mac" class="headerlink" title="LF.mac"></a>LF.mac</h3><h3 id="luv-letters"><a href="#luv-letters" class="headerlink" title="luv_letters"></a><a href="https://dancekey.github.io/">luv_letters</a></h3><h3 id="BIA"><a href="#BIA" class="headerlink" title="BIA"></a>BIA</h3><h3 id="芜湖！"><a href="#芜湖！" class="headerlink" title="芜湖！"></a>芜湖！</h3>]]></content>
+    <content><![CDATA[<h2 id="Welcome-gods"><a href="#Welcome-gods" class="headerlink" title="Welcome gods!"></a>Welcome gods!</h2><h3 id="LF-mac"><a href="#LF-mac" class="headerlink" title="LF.mac"></a>LF.mac</h3><h3 id="luv-letters"><a href="#luv-letters" class="headerlink" title="luv_letters"></a><a href="https://dancekey.github.io/">luv_letters</a></h3><h3 id="BIA"><a href="#BIA" class="headerlink" title="BIA"></a>BIA</h3><p>芜湖！</p>
+]]></content>
       <categories>
         <category>gods</category>
       </categories>
@@ -56,28 +57,20 @@
   <entry>
     <title>Deal with Markdowm!!</title>
     <url>/2021/08/08/dealwithMarkdowm/</url>
-    <content><![CDATA[<h1 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h1><h2 id="基础文本效果"><a href="#基础文本效果" class="headerlink" title="基础文本效果"></a>基础文本效果</h2><h2 id="略高文本效果"><a href="#略高文本效果" class="headerlink" title="略高文本效果"></a>略高文本效果</h2><h3 id="文本位置与文本颜色"><a href="#文本位置与文本颜色" class="headerlink" title="文本位置与文本颜色"></a>文本位置与文本颜色</h3><p>代码：</p>
-<pre><code>&lt;center style=&#39;color:black;&#39;&gt; 看“板”娘——雷蛇小姐 &lt;/center&gt;
-</code></pre>
+    <content><![CDATA[<h1 id="1-文本"><a href="#1-文本" class="headerlink" title="1.文本"></a>1.文本</h1><h2 id="1-1基础文本效果"><a href="#1-1基础文本效果" class="headerlink" title="1.1基础文本效果"></a>1.1基础文本效果</h2><h2 id="1-2略高文本效果"><a href="#1-2略高文本效果" class="headerlink" title="1.2略高文本效果"></a>1.2略高文本效果</h2><h3 id="1-2-1位置与颜色"><a href="#1-2-1位置与颜色" class="headerlink" title="1.2.1位置与颜色"></a>1.2.1位置与颜色</h3><p>代码：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span> <span class="attr">style</span>=<span class="string">&#x27;color:black;&#x27;</span>&gt;</span></span> 看“板”娘——雷蛇小姐 <span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span> <span class="attr">style</span>=<span class="string">&#x27;color:blue;&#x27;</span>&gt;</span></span> 看“板”娘——雷蛇小姐 <span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>效果：</p>
 <center style='color:black;'> 看“板”娘——雷蛇小姐 </center>
+<center style='color:blue;'> 看“板”娘——雷蛇小姐 </center>
 
-<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><h2 id="基础图片"><a href="#基础图片" class="headerlink" title="基础图片"></a>基础图片</h2><h2 id="控制大小的图片"><a href="#控制大小的图片" class="headerlink" title="控制大小的图片"></a>控制大小的图片</h2><p>代码：</p>
-<pre><code>&lt;img src=&quot;https://www.hualigs.cn/image/610eb7d47a69a.jpg&quot; width=&quot;40%&quot; alt=&quot;&quot;/&gt;
-</code></pre>
+<h1 id="2-图片"><a href="#2-图片" class="headerlink" title="2.图片"></a>2.图片</h1><h2 id="2-1基础图片"><a href="#2-1基础图片" class="headerlink" title="2.1基础图片"></a>2.1基础图片</h2><p>代码：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">![<span class="string">雷蛇小姐</span>](<span class="link">https://www.hualigs.cn/image/610eb7d47a69a.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://www.hualigs.cn/image/610eb7d47a69a.jpg" alt="雷蛇小姐"></p>
+<h2 id="2-2控制大小的图片"><a href="#2-2控制大小的图片" class="headerlink" title="2.2控制大小的图片"></a>2.2控制大小的图片</h2><p>代码：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://www.hualigs.cn/image/610eb7d47a69a.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;40%&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>效果：<br><img src="https://www.hualigs.cn/image/610eb7d47a69a.jpg" width="40%" alt=""/></p>
-<h2 id="图片边框，标注，以及大小的控制"><a href="#图片边框，标注，以及大小的控制" class="headerlink" title="图片边框，标注，以及大小的控制"></a>图片边框，标注，以及大小的控制</h2><p>代码：</p>
-<pre><code>&lt;center&gt;
-&lt;img style=&quot;border-radius: 0.3125em;
-box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);&quot; 
-src=&quot;https://www.hualigs.cn/image/610eb7d47a69a.jpg&quot; width=&quot;40%&quot; alt=&quot;&quot;/&gt;
-&lt;br&gt;
-&lt;div style=&quot;color:orange; border-bottom: 1px solid #d9d9d9;
-display: inline-block;
-color: #999;
-padding: 2px;&quot;&gt;看“板”娘——雷蛇小姐&lt;/div&gt;
-&lt;/center&gt;
-</code></pre>
+<h2 id="2-3图片边框，标注，以及大小的控制"><a href="#2-3图片边框，标注，以及大小的控制" class="headerlink" title="2.3图片边框，标注，以及大小的控制"></a>2.3图片边框，标注，以及大小的控制</h2><p>代码：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">&quot;border-radius: 0.3125em;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="xml">box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);&quot;</span> </span></span></span><br><span class="line"><span class="tag"><span class="xml"><span class="attr">src</span>=<span class="string">&quot;https://www.hualigs.cn/image/610eb7d47a69a.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;40%&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;color:orange; border-bottom: 1px solid #d9d9d9;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="xml">display: inline-block;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="xml">color: #999;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="xml">padding: 2px;&quot;</span>&gt;</span></span>看“板”娘——雷蛇小姐<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>效果：</p>
 <center>
 <img style="border-radius: 0.3125em;
