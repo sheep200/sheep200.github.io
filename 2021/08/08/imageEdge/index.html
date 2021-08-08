@@ -73,8 +73,8 @@
 <center style='color:gray;'> 好像也挺帅？ </center>
 
 <p>这张还可以看出五官，但是相信我，很多图像是不行的，而且大量的亮部和暗部的轮廓都会消失。<br>下面就来尝试用Python处理一下这张图片吧~</p>
-<h1 id="Python图像处理"><a href="#Python图像处理" class="headerlink" title="Python图像处理"></a>Python图像处理</h1><p>这里用的图像处理的库是OpenCv的。</p>
-<h2 id="库的安装"><a href="#库的安装" class="headerlink" title="库的安装"></a>库的安装</h2><center style='color:gray;'> 安装库是第一步，也是最后一步，什么叫面向CSDN编程啊（战术后仰</center>
+<h1 id="基础的Python图像边缘识别"><a href="#基础的Python图像边缘识别" class="headerlink" title="基础的Python图像边缘识别"></a>基础的Python图像边缘识别</h1><p>这里用的图像处理的库是OpenCv的。</p>
+<h2 id="1-库的安装"><a href="#1-库的安装" class="headerlink" title="1.库的安装"></a>1.库的安装</h2><center style='color:gray;'> 安装库是第一步，也是最后一步，什么叫面向CSDN编程啊（战术后仰</center>
 
 
 <p>电脑上需要有Python，我用的是Python3.6.4<br>首先要安装numpy，命令如下：</p>
@@ -85,18 +85,18 @@
 <blockquote>
 <p>因为我不是在新电脑上学的啊，原来可能就有一些库，要完成接下来的操作可能还会缺一个库，就是matplot。这个库是Python画图用的，并不是必须的。不过建议自己搜索安装一个。</p>
 </blockquote>
-<h2 id="开始处理！"><a href="#开始处理！" class="headerlink" title="开始处理！"></a>开始处理！</h2><h3 id="库引入"><a href="#库引入" class="headerlink" title="库引入"></a>库引入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<h2 id="2-库引入"><a href="#2-库引入" class="headerlink" title="2.库引入"></a>2.库引入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
 <p>没什么好说的</p>
-<h3 id="图像读取"><a href="#图像读取" class="headerlink" title="图像读取"></a>图像读取</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">original_img = cv2.imread(<span class="string">&quot;D:/red.jpg&quot;</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="3-图像读取"><a href="#3-图像读取" class="headerlink" title="3.图像读取"></a>3.图像读取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">original_img = cv2.imread(<span class="string">&quot;D:/red.jpg&quot;</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>这个cv2.imread函数除了可以指定图片的地址，还可以指定读取的通道数。像这里用的是 0 ，这样其实读出来的图像就已经是灰度图了。<br>把后面的“，0”去掉，图像才会是原图。</p>
-<h3 id="canny边缘检测"><a href="#canny边缘检测" class="headerlink" title="canny边缘检测"></a>canny边缘检测</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img1 = cv2.GaussianBlur(original_img,(<span class="number">3</span>,<span class="number">3</span>),<span class="number">0</span>)</span><br><span class="line">canny = cv2.Canny(img1, <span class="number">50</span>, <span class="number">150</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="4-canny边缘检测"><a href="#4-canny边缘检测" class="headerlink" title="4.canny边缘检测"></a>4.canny边缘检测</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img1 = cv2.GaussianBlur(original_img,(<span class="number">3</span>,<span class="number">3</span>),<span class="number">0</span>)</span><br><span class="line">canny = cv2.Canny(img1, <span class="number">50</span>, <span class="number">150</span>)</span><br></pre></td></tr></table></figure>
 <p>canny函数只能处理灰度图，前面已经完成了彩图到灰度图的转化。<br>用高斯平滑处理原图像降噪。<br>再用canny指定最大和最小阈值，提取边缘。</p>
 <blockquote>
 <p>OpenCV-Python中Canny函数的原型为：<br>edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient ]]])<br>必要参数：<br>第一个参数是需要处理的原图像，该图像必须为单通道的灰度图；<br>第二个参数是阈值1；<br>第三个参数是阈值2。<br>其中较大的阈值2用于检测图像中明显的边缘，但一般情况下检测的效果不会那么完美，边缘检测出来是断断续续的。所以这时候用较小的第一个阈值用于将这些间断的边缘连接起来。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sunny2038/article/details/9202641">https://blog.csdn.net/sunny2038/article/details/9202641</a></p>
 </blockquote>
-<h3 id="反向"><a href="#反向" class="headerlink" title="反向"></a>反向</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">height,width = canny.shape</span><br><span class="line">cannyturn = np.zeros((height,width,<span class="number">1</span>),np.uint8)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(height):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(width):</span><br><span class="line">        cannyturn[i,j] = <span class="number">255</span> - canny[i,j]</span><br></pre></td></tr></table></figure>
-<p>这一步只是为了用黑色显示轮廓，白色当背景而已。canny默认的是黑色背景，白色轮廓。<br>这一步可以省去，只不过是用AD脚本转化的时候方便一点而已。</p>
-<h3 id="画图显示"><a href="#画图显示" class="headerlink" title="画图显示"></a>画图显示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),plt.imshow(original_img,cmap = <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Original&#x27;</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>),plt.imshow(canny,cmap = <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Canny&#x27;</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="5-色彩反向"><a href="#5-色彩反向" class="headerlink" title="5.色彩反向"></a>5.色彩反向</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">height,width = canny.shape</span><br><span class="line">cannyturn = np.zeros((height,width,<span class="number">1</span>),np.uint8)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(height):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(width):</span><br><span class="line">        cannyturn[i,j] = <span class="number">255</span> - canny[i,j]</span><br></pre></td></tr></table></figure>
+<p>这一步只是为了用黑色显示轮廓，白色当背景而已。canny默认的是黑色背景，白色轮廓。<br>方法非常无脑，生成另外一个相同大小的图像，然后将原图像的每一个像素点颜色数值反过来，赋给新图像。就完事了。<br>这一步可以省去，只不过是用AD脚本转化的时候方便一点而已。</p>
+<h2 id="6-画图显示"><a href="#6-画图显示" class="headerlink" title="6.画图显示"></a>6.画图显示</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),plt.imshow(original_img,cmap = <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Original&#x27;</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>),plt.imshow(canny,cmap = <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Canny&#x27;</span>), plt.xticks([]), plt.yticks([])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p>这一步是为了将图像显示一下，简单对比一下效果。</p>
 <center>
 <img style="border-radius: 0.3125em;
@@ -110,15 +110,44 @@ padding: 2px;">这一步运行弹出的窗口</div>
 </center>
 同样可以省去的
 
-<h3 id="图像保存"><a href="#图像保存" class="headerlink" title="图像保存"></a>图像保存</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(<span class="string">&#x27;black2.jpg&#x27;</span>,cannyturn)</span><br></pre></td></tr></table></figure>
+<h2 id="7-图像保存"><a href="#7-图像保存" class="headerlink" title="7.图像保存"></a>7.图像保存</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(<span class="string">&#x27;black2.jpg&#x27;</span>,cannyturn)</span><br></pre></td></tr></table></figure>
 <p>默认保存在Python程序所在的文件夹<br>最终效果：</p>
 <center>
 <img src="https://www.hualigs.cn/image/610fa704c408f.jpg" width="40%" alt=""/>
 </center>
 <center style='color:gray;'> 建议点开看 </center>
 如果觉得边缘还是不明显的话，可以降低canny函数的阈值。
+而且上面所述的方法忽略了一步，就是彩图向灰度图的转化。实际上RGB彩图向灰度图的转化有很多种方法，这里是在采集图像的时候就直接按照灰度通道采集。如果在这里做些手脚的话，效果也许会更好。这会意味着更大的调整空间 ~~以及更多参数要调~~
 
-<p>不过就观感来看，这个轮廓图相较于单纯的二值图过分单薄了些。后续我会考虑如何用Python将两者结合起来。这样用在电路板上当看“板”娘才有范儿~</p>
+<p>不过就观感来看，这个轮廓图相较于单纯的二值图过分单薄了些。后续我会考虑如何用Python将两者结合起来，兼顾轮廓与明暗色块。这样放在电路板上当看“板”娘才有范儿~</p>
+<hr>
+<center style='color:blue;'> 更新分割线 2021/8/8（没错还是今天） </center>
+
+<blockquote>
+<h2 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h2><p>受到那个粗暴的反向方法的启发，我弄了一个二值图与轮廓图的融合方法。最终成品效果应该是比单独的两张图都好上一些的。反正出来之后，效果就是预想的效果，心中有一丝没有遇上惊喜的失落。</p>
+</blockquote>
+<h1 id="二值图与轮廓图的融合"><a href="#二值图与轮廓图的融合" class="headerlink" title="二值图与轮廓图的融合"></a>二值图与轮廓图的融合</h1><h2 id="1-二值图的获取"><a href="#1-二值图的获取" class="headerlink" title="1.二值图的获取"></a>1.二值图的获取</h2><p>之前用PS获得过二值图，Python中还需要完成一步灰度图向二值图的转化。<br>自创的转化代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#二值图生成</span></span><br><span class="line">height2,width2 = img1.shape</span><br><span class="line">bmp = np.zeros((height2,width2,<span class="number">1</span>),np.uint8)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(height2):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(width2):</span><br><span class="line">        <span class="keyword">if</span> img1[i,j] &gt;= <span class="number">127</span>:</span><br><span class="line">            bmp[i,j] = <span class="number">255</span></span><br><span class="line">        <span class="keyword">elif</span> img1[i,j] &lt; <span class="number">127</span>:</span><br><span class="line">            bmp[i,j] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>效果和用PS做出来的效果几乎一样~</p>
+<center>
+<img src="https://www.hualigs.cn/image/6110042694ef1.jpg" width="40%" alt=""/>
+</center>
+
+<h2 id="2-二值图与轮廓图的融合"><a href="#2-二值图与轮廓图的融合" class="headerlink" title="2.二值图与轮廓图的融合"></a>2.二值图与轮廓图的融合</h2><p>主要思路就是用轮廓的信息对二值图进行描绘<br>将二值图中白的地方刮黑，黑的地方刮白，以此呈现出被二值掉的轮廓。<br>上代码~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#融合--融合在bmp上</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(height2):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(width2):</span><br><span class="line">        <span class="keyword">if</span> canny[i,j] &gt; <span class="number">127</span>:</span><br><span class="line">            bmp[i,j] = <span class="number">255</span> - bmp[i,j]</span><br></pre></td></tr></table></figure>
+<p>直接看最终效果~</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/611005f32a317.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">二值图能做到这样，已经是极限了罢（悲 </div>
+</center>
+
+<p>怎么说呢，这张图远看跟二值图没区别，近看才会有明显的效果。跟原来两张图一比较还是会好上一些。<br>有新的参数可以调了！<br>二值化的阈值。这个参数控制图片亮部和暗部的范围，对于整体观感是肯定有影响的。<br>能想到的改进方向还有轮廓的粗细，二值化算法等等，以后再说吧。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
