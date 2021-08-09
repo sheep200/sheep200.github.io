@@ -157,8 +157,9 @@ padding: 2px;">二值图能做到这样，已经是极限了罢（悲 </div>
 <p>在说动态调参之前，还有一个小玩意儿分享一下~</p>
 <h2 id="0-图层蒙板"><a href="#0-图层蒙板" class="headerlink" title="0.图层蒙板"></a>0.图层蒙板</h2><p>既然是做图像处理，图层是一个很重要的概念。虽然Python并不能对一个图像保存多个图层进行处理（Adobe还是永远的神），但是可以在两张图片之间使用蒙板，这已经很有图层的味了。</p>
 <blockquote>
-<p>转念一想，图像既然是按照像素储存在二维数组里的，如果换成三维数组，那岂不是可以有很多层的图片？退一步讲，其实只要定义很多张相同大小的图片，人为的给他们排上顺序，其实就已经是图层了。格局小了.jpg<br>先上代码：</p>
+<p>转念一想，图像既然是按照像素储存在二维数组里的，如果换成三维数组，那岂不是可以有很多层的图片？退一步讲，其实只要定义很多张相同大小的图片，人为的给他们排上顺序，其实就已经是图层了。格局小了.jpg</p>
 </blockquote>
+<p>先上代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.bitwise_and(img,img,mask = detected_edges)</span><br></pre></td></tr></table></figure>
 <p>同样是Opencv的函数，原理其实是对像素点进行“与”运算。<br>在这里detected_edges图像上只有黑色和白色，它作为蒙版后，其下的img图片对应白色的地方就可以保留，对应黑色的部分就会被遮盖。<br>之前生成的边缘图就是一个只有黑白两种颜色的图啊，如果将边缘图的阈值调的很低，作为蒙版去处理原图。就会得到一个有意思的效果。</p>
 <center>
@@ -193,7 +194,7 @@ padding: 2px;">从刮刮乐变成了彩铅~</div>
 <p>这里使用的显示窗口不是之前matplot的那一套。这里用的这一套有一点不舒服就是显示出来图像的大小是与显示屏分辨率挂钩的，也就是如果图片的分辨率大于显示屏的分辨率，就会生成一个超大的、超出屏幕的窗口，而且还无法放缩·····</p>
 </blockquote>
 <p>这里用到了Python函数的定义，而且这里还是回调函数。作用有点像嵌入式里面的服务函数。<br>这个cv2.createTrackbar函数就像是创建了一个外部中断，只要检测到滑块运动了，就会执行回调函数内的语句。后面的代码还在向后运行，不会受这个函数影响（最多就是在回调函数运行时被打断一下而已）</p>
-<p>将代码中的cv2.imwrite(‘coloredgew.jpg’,dst)的注释去掉，就可以实时在文件夹中生成你在窗口里看到的图像了。</p>
+<p>将代码中的cv2.imwrite(‘coloredgew.jpg’,dst)的注释去掉，就可以实时在文件夹中生成你在窗口里看到的图像文件了。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
