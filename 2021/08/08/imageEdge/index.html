@@ -121,7 +121,7 @@ padding: 2px;">这一步运行弹出的窗口</div>
 
 <p>不过就观感来看，这个轮廓图相较于单纯的二值图过分单薄了些。后续我会考虑如何用Python将两者结合起来，兼顾轮廓与明暗色块。这样放在电路板上当看“板”娘才有范儿~</p>
 <hr>
-<center style='color:blue;'> 更新分割线 2021/8/8（没错还是今天） </center>
+<center style='color:green;'> 更新分割线 2021/8/8（没错还是今天） </center>
 
 <blockquote>
 <h2 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h2><p>受到那个粗暴的反向方法的启发，我弄了一个二值图与轮廓图的融合方法。最终成品效果应该是比单独的两张图都好上一些的。反正出来之后，效果就是预想的效果，心中有一丝没有遇上惊喜的失落。</p>
@@ -148,6 +148,52 @@ padding: 2px;">二值图能做到这样，已经是极限了罢（悲 </div>
 </center>
 
 <p>怎么说呢，这张图远看跟二值图没区别，近看才会有明显的效果。跟原来两张图一比较还是会好上一些。<br>有新的参数可以调了！<br>二值化的阈值。这个参数控制图片亮部和暗部的范围，对于整体观感是肯定有影响的。<br>能想到的改进方向还有轮廓的粗细，二值化算法等等，以后再说吧。</p>
+<hr>
+<center style='color:green;'> 更新分割线2021/8/9 </center>
+
+<h1 id="动态调参"><a href="#动态调参" class="headerlink" title="动态调参"></a>动态调参</h1><blockquote>
+<h2 id="引子-2"><a href="#引子-2" class="headerlink" title="引子"></a>引子</h2><p>既然之前提到了参数，对于效果不好的图像，最基础的操作当然是关掉页面，回到VScode中修改参数再运行一次。虽然这对于Python程序而言比较简单，毕竟是解释性的语言，对于动态调参的需求没有嵌入式那么高，我还是弄了一个动态调参的东西。实不实用不重要，重要是帅啊。</p>
+</blockquote>
+<p>在说动态调参之前，还有一个小玩意儿分享一下~</p>
+<h2 id="0-图层蒙板"><a href="#0-图层蒙板" class="headerlink" title="0.图层蒙板"></a>0.图层蒙板</h2><p>既然是做图像处理，图层是一个很重要的概念。虽然Python并不能对一个图像保存多个图层进行处理（Adobe还是永远的神），但是可以在两张图片之间使用蒙板，这已经很有图层的味了。</p>
+<blockquote>
+<p>转念一想，图像既然是按照像素储存在二维数组里的，如果换成三维数组，那岂不是可以有很多层的图片？退一步讲，其实只要定义很多张相同大小的图片，人为的给他们排上顺序，其实就已经是图层了。格局小了.jpg<br>先上代码：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.bitwise_and(img,img,mask = detected_edges)</span><br></pre></td></tr></table></figure>
+<p>同样是Opencv的函数，原理其实是对像素点进行“与”运算。<br>在这里detected_edges图像上只有黑色和白色，它作为蒙版后，其下的img图片对应白色的地方就可以保留，对应黑色的部分就会被遮盖。<br>之前生成的边缘图就是一个只有黑白两种颜色的图啊，如果将边缘图的阈值调的很低，作为蒙版去处理原图。就会得到一个有意思的效果。</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/6110cb519e84e.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">同样建议点开放大看</div>
+</center>
+
+<p>借此，就出现了一大批有关的图像处理函数。<br>用这些函数可以做很多P图的工作，比如将上图中的黑色镂空部分换成白色：</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/6110e016b9436.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">从刮刮乐变成了彩铅~</div>
+</center>
+
+<p>这些函数别人的博客都将的很清楚了，我就不赘述了。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ckAng/p/10843409.html">一堆函数</a> ，<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35732969/article/details/83748054">以及用这些函数P图的实例</a></p>
+<p>于是我就发现我昨天自己写的二值图算法和融合算法完全可以由这些函数代替。那种逐个像素点比对的方式运行速度很慢，我点击运行之后要等上10秒左右才能运行完一张图，完全比不上Opencv里边那些封装好的、高度优化的函数。小丑竟是我自己。<br>这些不能算是今天的重点，今天的重点是动态调参~</p>
+<h2 id="cv2-createTrackbar"><a href="#cv2-createTrackbar" class="headerlink" title="cv2.createTrackbar"></a>cv2.createTrackbar</h2><p>直接上代码吧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> numpy.lib.shape_base <span class="keyword">import</span> dstack</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="string">&#x27;D:\Program doc\VScode\VS-code-py\PictureEdge/red.jpg&#x27;</span>)</span><br><span class="line">gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CannyThreshold</span>(<span class="params">lowThreshold</span>):</span></span><br><span class="line">    detected_edges = cv2.GaussianBlur(gray,(<span class="number">3</span>,<span class="number">3</span>),<span class="number">0</span>)</span><br><span class="line">    detected_edges = cv2.Canny(detected_edges,lowThreshold,lowThreshold*ratio,apertureSize = kernel_size)</span><br><span class="line">    dst = cv2.bitwise_and(img,img,mask = detected_edges)</span><br><span class="line">    cv2.imshow(<span class="string">&#x27;canny demo&#x27;</span>,dst)</span><br><span class="line">    <span class="comment">#cv2.imwrite(&#x27;coloredgew.jpg&#x27;,dst)</span></span><br><span class="line"> </span><br><span class="line">lowThreshold = <span class="number">0</span></span><br><span class="line">max_lowThreshold = <span class="number">100</span></span><br><span class="line">ratio = <span class="number">3</span></span><br><span class="line">kernel_size = <span class="number">3</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">cv2.namedWindow(<span class="string">&#x27;canny demo&#x27;</span>)</span><br><span class="line"> </span><br><span class="line">cv2.createTrackbar(<span class="string">&#x27;Min threshold&#x27;</span>,<span class="string">&#x27;canny demo&#x27;</span>,lowThreshold, max_lowThreshold, CannyThreshold)</span><br><span class="line"> </span><br><span class="line">CannyThreshold(<span class="number">0</span>)  <span class="comment"># initialization</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> cv2.waitKey(<span class="number">0</span>) == <span class="number">27</span>:</span><br><span class="line">    cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p>感谢<a target="_blank" rel="noopener" href="https://blog.csdn.net/sunny2038/article/details/9202641">原文</a>博主</p>
+<blockquote>
+<p>这里使用的显示窗口不是之前matplot的那一套。这里用的这一套有一点不舒服就是显示出来图像的大小是与显示屏分辨率挂钩的，也就是如果图片的分辨率大于显示屏的分辨率，就会生成一个超大的、超出屏幕的窗口，而且还无法放缩·····</p>
+</blockquote>
+<p>这里用到了Python函数的定义，而且这里还是回调函数。作用有点像嵌入式里面的服务函数。<br>这个cv2.createTrackbar函数就像是创建了一个外部中断，只要检测到滑块运动了，就会执行回调函数内的语句。后面的代码还在向后运行，不会受这个函数影响（最多就是在回调函数运行时被打断一下而已）</p>
+<p>将代码中的cv2.imwrite(‘coloredgew.jpg’,dst)的注释去掉，就可以实时在文件夹中生成你在窗口里看到的图像了。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
