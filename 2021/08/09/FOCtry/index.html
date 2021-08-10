@@ -62,6 +62,11 @@
 
 <h2 id="先将-稚晖君FOC神文-供在这里"><a href="#先将-稚晖君FOC神文-供在这里" class="headerlink" title="先将 稚晖君FOC神文 供在这里"></a>先将 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147659820">稚晖君FOC神文</a> 供在这里</h2></center>
 
+<h2 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h2><p>我打算实现的是无刷电机带编码器的版本。虽然听说了无刷电机的无感控制，我还是感觉有感的简单易懂一些。</p>
+<h3 id="P-1-单片机基础功能"><a href="#P-1-单片机基础功能" class="headerlink" title="P.1 单片机基础功能"></a>P.1 单片机基础功能</h3><p>FOC需要大量的数学计算，因此一块趁手的单片机比较重要。做车用的单片机是英飞凌的TC264，用那块单片机的话很多事都不用愁了，像什么PWM输出，编码器，ADC都是现成的。无奈放假逃离学校的时候什么都拿了，唯独忘了那几片单片机。手头上只有几片32的开发板。<br>初步计划用那F103C8T6，早晚都要会的</p>
+<h3 id="P-2-功率与逻辑电路"><a href="#P-2-功率与逻辑电路" class="headerlink" title="P.2 功率与逻辑电路"></a>P.2 功率与逻辑电路</h3><p>仔细看了稚晖君的文章，在功率电路上不是很复杂，感觉用半桥驱动器可以实现。之前用IR2104搭H桥，这里不过是搭了一个三相的嘛（？<br>至于电流检测，文章中也提到了采样电阻和霍尔传感器两种方法，复现就行了。</p>
+<h3 id="P-3-外设"><a href="#P-3-外设" class="headerlink" title="P.3 外设"></a>P.3 外设</h3><p>买一个编码器在C8T6上运行，串级PID三环，速度环和位置环都需要编码器的参与。<br>其次为了显示参数，需要一块OLED。</p>
+<h3 id="P-4-算法"><a href="#P-4-算法" class="headerlink" title="P.4 算法"></a>P.4 算法</h3><p>软件要实现大量的数学计算，文章的中描述的倒是能看懂。不过有些操作还是需要依靠单片机的外设实现，比如配置一个并非规律的占空比输出，我目前就没有头绪(莫非用IO口模拟？就算是这样也很不好写啊)<br>总之这里边走边看吧。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
