@@ -5,12 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Archive</title>
+    <title>学Cube,走向懒狗人生 - Hexo</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="sheep200,"> 
-    
+    <meta name="description" content="STM32CubeMX
+引子要做FOC，我对自己差多少东西还是有点数的。单片机都没怎么学通，别说寄存器了，就连一块32的芯片用Cube写都不熟悉，完全一副被例程惯坏了的样子。从最基础的开始学有一些来,"> 
     <meta name="author" content="sheep200"> 
     <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -25,69 +26,66 @@
 <body class="loading">
     <span id="config-title" style="display:none">Hexo</span>
     <div id="loader"></div>
-    <div id="single" class="page">
-    <div id="top">
-        <a class="iconfont icon-left image-icon" href="javascript:history.back()"></a>
-    </div>
-    <div class="section">
-        <div class="article">
-            <div class="main">
-                <div class="content">
-                    <div class="timeline">
-                      <h2 class="timeline-title">归档: 7篇</h2><hr>
-                      
-                      
-                        
-                          <h3 class="timeline-subtitle">2021</h3>
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-11</time>
-                          <a target="_self" href="/2021/08/11/STM32Cube/">学Cube,走向懒狗人生</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-09</time>
-                          <a target="_self" href="/2021/08/09/FOCtry/">关于FOC驱动器的尝试</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-08</time>
-                          <a target="_self" href="/2021/08/08/imageEdge/">Python图像边缘检测</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-08</time>
-                          <a target="_self" href="/2021/08/08/dealwithMD/">Deal with Markdowm!!</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-07</time>
-                          <a target="_self" href="/2021/08/07/powerPCB/">垃圾电源板 &amp; 延期电赛 Best match!</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-04</time>
-                          <a target="_self" href="/2021/08/04/wenthome/">When I Went Home</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2021-08-03</time>
-                          <a target="_self" href="/2021/08/03/hello-world/">Welcome gods!</a>
-                        </div>
-                      
-                    </div>
-                </div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://sheep200.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">学Cube,走向懒狗人生</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
+            <div id="qr"></div>
         </div>
     </div>
+    <div class="scrollbar"></div>
 </div>
 
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">学Cube,走向懒狗人生</h1>
+        <div class="stuff">
+            <span>八月 11, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/MCCM/" rel="tag">MCCM</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/STM32/" rel="tag">STM32</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>要做FOC，我对自己差多少东西还是有点数的。单片机都没怎么学通，别说寄存器了，就连一块32的芯片用Cube写都不熟悉，完全一副被例程惯坏了的样子。从最基础的开始学有一些来不及了，既然打算用手上的这一块C8T6，就直接用Cube写就行了。昨天已经烧进去程序了，现在就是学习如何调通各个外设和模块的事了。</p>
+</blockquote>
+<h2 id="Cube点亮LED"><a href="#Cube点亮LED" class="headerlink" title="Cube点亮LED"></a>Cube点亮LED</h2><p>1.设置使用外部晶振<br>2.设置时钟树参数<br>3.设置SYS的Debug模式<br>4.在芯片图上找到引脚，配置成GPIO输出<br>5.左边GPIO配置：初始电平、输出模式、上拉下拉，频率，引脚标签<br>6.工程配置：起名，工程文件夹，使用的编译软件，是否复制所有库文件，.c.h分开<br>7.生成工程<br>8.配置下载器<br>9.调用函数<br>10.下载</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="http://link.hhtjim.com/163/425570952.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
 </body>
 
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>

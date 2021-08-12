@@ -253,8 +253,13 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
 <h2 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h2><p>我打算实现的是无刷电机带编码器的版本。虽然听说了无刷电机的无感控制，我还是感觉有感的简单易懂一些。</p>
 <h3 id="P-1-单片机基础功能"><a href="#P-1-单片机基础功能" class="headerlink" title="P.1 单片机基础功能"></a>P.1 单片机基础功能</h3><p>FOC需要大量的数学计算，因此一块趁手的单片机比较重要。做车用的单片机是英飞凌的TC264，用那块单片机的话很多事都不用愁了，像什么PWM输出，编码器，ADC都是现成的。无奈放假逃离学校的时候什么都拿了，唯独忘了那几片单片机。手头上只有几片32的开发板。<br>初步计划用那F103C8T6，早晚都要会的</p>
 <h3 id="P-2-功率与逻辑电路"><a href="#P-2-功率与逻辑电路" class="headerlink" title="P.2 功率与逻辑电路"></a>P.2 功率与逻辑电路</h3><p>仔细看了稚晖君的文章，在功率电路上不是很复杂，感觉用半桥驱动器可以实现。之前用IR2104搭H桥，这里不过是搭了一个三相的嘛（？<br>至于电流检测，文章中也提到了采样电阻和霍尔传感器两种方法，复现就行了。</p>
-<h3 id="P-3-外设"><a href="#P-3-外设" class="headerlink" title="P.3 外设"></a>P.3 外设</h3><p>买一个编码器在C8T6上运行，串级PID三环，速度环和位置环都需要编码器的参与。<br>其次为了显示参数，需要一块OLED。</p>
+<h3 id="P-3-外设"><a href="#P-3-外设" class="headerlink" title="P.3 外设"></a>P.3 外设</h3><p>买一个编码器在C8T6上运行，串级PID三环，速度环和位置环都需要编码器的参与。<br>其次为了显示参数，需要一块屏幕。</p>
 <h3 id="P-4-算法"><a href="#P-4-算法" class="headerlink" title="P.4 算法"></a>P.4 算法</h3><p>软件要实现大量的数学计算，文章的中描述的倒是能看懂。不过有些操作还是需要依靠单片机的外设实现，比如配置一个并非规律的占空比输出，我目前就没有头绪(莫非用IO口模拟？就算是这样也很不好写啊)<br>总之算法边走边看吧。</p>
+<hr>
+<center style='color:green;'> 2021/8/12 更新 </center>
+
+<h2 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h2><h3 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h3><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><h3 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h3><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能。</p>
 ]]></content>
       <categories>
         <category>Hardware</category>
@@ -262,6 +267,23 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
       <tags>
         <tag>PCB</tag>
         <tag>FOC</tag>
+        <tag>MCCM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学Cube,走向懒狗人生</title>
+    <url>/2021/08/11/STM32Cube/</url>
+    <content><![CDATA[<h1 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>要做FOC，我对自己差多少东西还是有点数的。单片机都没怎么学通，别说寄存器了，就连一块32的芯片用Cube写都不熟悉，完全一副被例程惯坏了的样子。从最基础的开始学有一些来不及了，既然打算用手上的这一块C8T6，就直接用Cube写就行了。昨天已经烧进去程序了，现在就是学习如何调通各个外设和模块的事了。</p>
+</blockquote>
+<h2 id="Cube点亮LED"><a href="#Cube点亮LED" class="headerlink" title="Cube点亮LED"></a>Cube点亮LED</h2><p>1.设置使用外部晶振<br>2.设置时钟树参数<br>3.设置SYS的Debug模式<br>4.在芯片图上找到引脚，配置成GPIO输出<br>5.左边GPIO配置：初始电平、输出模式、上拉下拉，频率，引脚标签<br>6.工程配置：起名，工程文件夹，使用的编译软件，是否复制所有库文件，.c.h分开<br>7.生成工程<br>8.配置下载器<br>9.调用函数<br>10.下载</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+        <tag>MCCM</tag>
       </tags>
   </entry>
 </search>
