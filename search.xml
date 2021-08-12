@@ -3,7 +3,7 @@
   <entry>
     <title>Welcome gods!</title>
     <url>/2021/08/03/hello-world/</url>
-    <content><![CDATA[<h2 id="Welcome-gods"><a href="#Welcome-gods" class="headerlink" title="Welcome gods!"></a>Welcome gods!</h2><h3 id="LF-mac"><a href="#LF-mac" class="headerlink" title="LF.mac"></a>LF.mac</h3><h3 id="luv-letters"><a href="#luv-letters" class="headerlink" title="luv_letters"></a><a href="https://dancekey.github.io/">luv_letters</a></h3><h3 id="BIA"><a href="#BIA" class="headerlink" title="BIA"></a>BIA</h3><p>芜湖！</p>
+    <content><![CDATA[<h2 id="Welcome-gods"><a href="#Welcome-gods" class="headerlink" title="Welcome gods!"></a>Welcome gods!</h2><h3 id="LF-mac"><a href="#LF-mac" class="headerlink" title="LF.mac"></a>LF.mac</h3><h3 id="luv-letters"><a href="#luv-letters" class="headerlink" title="luv_letters"></a><a href="https://dancekey.github.io/">luv_letters</a></h3><h3 id="Vanassian"><a href="#Vanassian" class="headerlink" title="Vanassian"></a><a href="https://vanassian.github.io/">Vanassian</a></h3><p>芜湖！</p>
 ]]></content>
       <categories>
         <category>gods</category>
@@ -260,7 +260,6 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
 
 <h2 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h2><h3 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h3><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
 <h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><h3 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h3><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
-<p>重新回去看了一遍稚晖君的FOC视频，对自己为什么要做这个玩意产生的严重的质疑。<br>我艹，这是我所能企及的吗？我在干嘛？</p>
 ]]></content>
       <categories>
         <category>Hardware</category>
@@ -285,6 +284,30 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
       <tags>
         <tag>STM32</tag>
         <tag>MCCM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>采样电阻测电流</title>
+    <url>/2021/08/12/Samplingresistance/</url>
+    <content><![CDATA[<h1 id="采样电阻测电流"><a href="#采样电阻测电流" class="headerlink" title="采样电阻测电流"></a>采样电阻测电流</h1><blockquote>
+<p>##引子<br>电流检测是FOC必不可少的东西，主流的电流检测一般是霍尔元件和采样电阻。然后我发现一个最便宜的霍尔元件就30++人民币，而且还需要正负15V供电（这也更加印证了电源板的失败。呸，没有正负15V还敢叫电源板？！）。我有这闲工夫闲钱配电源买原元件，不如做一个更亲民的采样电阻检测法了。</p>
+</blockquote>
+<blockquote>
+<p>AD未动，淘宝先行。在淘宝上搜索了霍尔元件测电流的模块，随之找到了上面的霍尔芯片，大部分是ACS712系列的，大约20块钱一片，如果直接从淘宝上买的话，一个30A的ACS712检测模块只要13块钱，虽然精度看评论比较差（有一说一立创贵的离谱，单片机也属他家的最贵）。我动摇了，打算先买个检测模块回来玩玩。关于采样电阻法，打算将理论完成，具体是否在板子上采取这种方案就另作考虑。</p>
+</blockquote>
+<h2 id="方案综述（全是干货）"><a href="#方案综述（全是干货）" class="headerlink" title="方案综述（全是干货）"></a>方案综述（全是干货）</h2><p>针对FOC来讲,通用的方式就是使用在下桥的后端使用采样电阻进行电流的采样。大佬一般在讨论具体使用1个、2个还是3个的问题，而我就没有这种疑问了（理直气壮）。具体想探讨一下究竟用多少个采样电阻合适请移驾这篇<a href="https://zhuanlan.zhihu.com/p/357517561">知乎文章</a><br>之前没有考虑到无刷电机上的霍尔元件的问题。即便强如稚晖君，使用的也是带有霍尔元件的无刷电机，这种电机的特点就是具有8个引脚（三相电机线，三路霍尔信号线，5V供电，GND）。这里的霍尔元件与测电流的“霍尔元件”不是一个概念。这里的霍尔元件一般被称为霍尔传感器或者霍尔开关，直接装在无刷电机上，用于返回当前无刷电机的定子与转子的相对位置，主要为驱动器上下桥状态的切换提供依据。我在一个<a href="http://www.constarmotor.com.cn/newsinfo/6171.html">页面精美的网站</a>找到了下面这些：</p>
+<blockquote>
+<p>无刷电机带霍尔传感器的优点：<br> 　1、内装有霍尔传感器，能够检测到转子的位置，启动平稳;<br>　　2、电机可以零速度启动归功与霍尔传感器。<br>　　缺点：<br>　　1、价格比无霍尔的高;<br>　　2、构造比无霍尔的复杂。<br>　　无刷电机无霍尔的优点：<br>　　1.寿命和可靠性更长，因为没有霍尔可以损坏;<br>　　2.成本低，因为不用霍尔，更不用霍尔支架。<br>　　3.制造更简单，传统电机需要调整霍尔角度。<br>　  缺点：<br>　　1.启动不流畅，因没有霍尔检测转子位置，因此驱动部分需要做过零点电流检测，导致电机启动时震动，甚至无法启动;<br>　　2.不适合大负载或负载变化大的场合应用;<br>　　3.有霍尔驱动器无法驱动此种电机。</p>
+</blockquote>
+<p>反正就是带霍尔的无刷电机yyds<br>稚晖君的<a href="https://www.bilibili.com/video/BV11V41127pq">FOC视频</a>下面有一楼大佬的评论（淹没在一众膜拜之声中（大雾）），讨论稚晖君的位置传感方式，其中有提到根据电流的高精度检测和反电动势计算，配合霍尔传感器就可以做到不用编码器实现电机转子的位置返回，有兴趣的可以去翻翻。至于晖君哥用的是哪种，我记得他在哪里说过没有用编码器来着。<br>回到采样电阻上来~之前说到要使用三个采样电阻，直接对三路的电流进行采集。采样电阻有专门的放大器可以用，立创上搜“电流感应放大器”就有了，相当于里面集成了一个固定放大倍数的运放系统，自己搭运放也没有问题。电路很好搭，唯一的问题就是双向检测。在立创的开源平台上也有人做这个，用的集成过的芯片，工程名称叫“双向电流检测模块”，无奈上面的接口有点多，出现很多个0R电阻，有点云里雾里的。还有一种方案，是在MAX9938系列芯片的芯片手册里看到的，好家伙，在同一个采样电阻上正着、反着各接了一个同样的芯片，最后占用了两个ADC的口，分别输出正向和反向的电流······从淘宝上看到的霍尔元件检测电流的模块，返回的ADC的值存在一个中值，高于这个值为正，低于这个值为负。这多方便啊，无奈评论区说这样检测精度比较低，而且也没有看到有人在无刷电机的控制上使用霍尔元件检测电流的(我原先还把电机上的霍尔元件跟这个检测电流的元件弄混了)。在这些电流感应放大器中，有一些是需要基准电压的，一般叫Vref，还有一些连单独供电都不需要。那个基准电压的产生还需要一种叫做“<a href="http://www.elecfans.com/dianzichangshi/20180129625382.html">电压基准芯片</a>”的东西产生。关于为什么有些芯片需要这个基准电压我还没有弄明白，不过好像对双向检测有帮助。<br>还有一种直接用<a href="http://www.xjishu.com/zhuanli/52/201821212436.html">运放搭双向电路的方案</a>,这里面有电路图，但是解释的文字被折叠了，姑且放在这里吧。<br>下面研究一下PCB布局和滤波元器件的问题。<br>PCB布局和元件选型参考CSDN上的<a href="https://blog.csdn.net/geek_monkey/article/details/104856007">开尔文接法</a><br>关于滤波元件，如果元件手册给的不详细的话，就只能自己装一些了。由于还没有学模电，还是需要科普一下<a href="https://baike.sogou.com/v4320416.htm?fromTitle=%E5%85%B1%E6%A8%A1%E6%8A%91%E5%88%B6%E6%AF%94">共模抑制</a>与差模抑制。这部分的资料还没有找全，以后再说吧。</p>
+]]></content>
+      <categories>
+        <category>Hardware</category>
+      </categories>
+      <tags>
+        <tag>PCB</tag>
+        <tag>FOC</tag>
+        <tag>BLDC</tag>
       </tags>
   </entry>
 </search>

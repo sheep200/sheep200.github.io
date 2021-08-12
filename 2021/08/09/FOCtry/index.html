@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>关于FOC驱动器的尝试 - Hexo</title>
+    <title>关于FOC驱动器的尝试 - Sheep_200</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
@@ -13,7 +13,7 @@
     <meta name="description" content="Field-Oriented Control
 引子回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸Python的图像处理，现在也感觉差不多,"> 
     <meta name="author" content="sheep200"> 
-    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <link rel="alternative" href="atom.xml" title="Sheep_200" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
     
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -24,7 +24,7 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body class="loading">
-    <span id="config-title" style="display:none">Hexo</span>
+    <span id="config-title" style="display:none">Sheep_200</span>
     <div id="loader"></div>
     <div id="single">
     <div id="top" style="display: block;">
@@ -72,7 +72,6 @@
 
 <h2 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h2><h3 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h3><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
 <h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><h3 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h3><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
-<p>重新回去看了一遍稚晖君的FOC视频，对自己为什么要做这个玩意产生的严重的质疑。<br>我艹，这是我所能企及的吗？我在干嘛？</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
