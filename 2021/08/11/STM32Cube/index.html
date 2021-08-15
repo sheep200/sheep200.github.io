@@ -59,6 +59,7 @@
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>要做FOC，我对自己差多少东西还是有点数的。单片机都没怎么学通，别说寄存器了，就连一块32的芯片用Cube写都不熟悉，完全一副被例程惯坏了的样子。从最基础的开始学有一些来不及了，既然打算用手上的这一块C8T6，就直接用Cube写就行了。昨天已经烧进去程序了，现在就是学习如何调通各个外设和模块的事了。</p>
 </blockquote>
 <h2 id="Cube点亮LED"><a href="#Cube点亮LED" class="headerlink" title="Cube点亮LED"></a>Cube点亮LED</h2><p>1.设置使用外部晶振<br>2.设置时钟树参数<br>3.设置SYS的Debug模式<br>4.在芯片图上找到引脚，配置成GPIO输出<br>5.左边GPIO配置：初始电平、输出模式、上拉下拉，频率，引脚标签<br>6.工程配置：起名，工程文件夹，使用的编译软件，是否复制所有库文件，.c.h分开<br>7.生成工程<br>8.配置下载器<br>9.调用函数<br>10.下载</p>
+<h2 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h2><p>得益于STM32的定时器中有编码器的设定，大多数时候都只需要按照顺序调用标准库函数即可。<br>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/lushoumin/article/details/87366618">通用定时器编码器模式</a>，对Cube生成的额代码进行了讲解，Cube配置的方法也在里面了。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
