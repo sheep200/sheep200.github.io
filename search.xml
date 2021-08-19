@@ -241,7 +241,7 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
       </tags>
   </entry>
   <entry>
-    <title>关于FOC驱动器的尝试</title>
+    <title>制作FOC驱动器（持续更新）</title>
     <url>/2021/08/09/FOCtry/</url>
     <content><![CDATA[<h1 id="Field-Oriented-Control"><a href="#Field-Oriented-Control" class="headerlink" title="Field-Oriented Control"></a>Field-Oriented Control</h1><blockquote>
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸Python的图像处理，现在也感觉差不多了。想起来之前老师说的立创上有电赛相关的内容。看到一个有关Odrive的，貌似是根据成熟的固件做的一套PCB。继续往下翻看到参考文献，发现有稚晖君的文章，毫不犹豫的点进去之后，发现是那篇关于<em><strong>FOC的知乎</strong></em>。看得我热血澎湃。不过，一个现在连在一块新单片机上配置脉冲计数都困难的我来讲，要复现绝非易事，但我还是要尝试一下~~</p>
@@ -258,8 +258,14 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
 <hr>
 <center style='color:green;'> 2021/8/12 更新 </center>
 
-<h2 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h2><h3 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h3><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
-<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><h3 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h3><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
+<h3 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h3><h4 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h4><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
+<h3 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h3><h4 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h4><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
+<hr>
+<center style='color:green;'> 2021/8/19 更新 </center>
+
+<h2 id="功率与逻辑电路"><a href="#功率与逻辑电路" class="headerlink" title="功率与逻辑电路"></a>功率与逻辑电路</h2><blockquote>
+<h2 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h2><p>花了将近一个星期搜集各种资料，完成了无刷电驱功率与逻辑电路的设计）。打算采取的方案没有变化，驱动的电机是裸电机带霍尔传感器的，这种电机带有8根线，具体详见<a href="https://sheep200.github.io/2021/08/12/Samplingresistance/">采样电阻测电流</a>。这个电驱几乎完成了硬件上要解决的大部分功能，直接接上核心板就可以完成功能（还需要核心板上连编码器）。可以适配软件上的不同方案，达到学习算法的目的。面积是8cmX6cm，面积不大的代价就是元件排布尤为密集以至于不得不使用4层板（反正嘉立创免费），画四层板的方法还是PCB画到一半画不下去了，到B站现学的。</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Hardware</category>
