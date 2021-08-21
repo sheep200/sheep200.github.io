@@ -258,14 +258,115 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
 <hr>
 <center style='color:green;'> 2021/8/12 更新 </center>
 
-<h3 id="当前进度"><a href="#当前进度" class="headerlink" title="当前进度"></a>当前进度</h3><h4 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h4><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
-<h3 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h3><h4 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h4><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
+<h3 id="G-1当前进度"><a href="#G-1当前进度" class="headerlink" title="G.1当前进度"></a>G.1当前进度</h3><h4 id="单片机SYSTEM"><a href="#单片机SYSTEM" class="headerlink" title="单片机SYSTEM"></a>单片机SYSTEM</h4><p>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。</p>
+<h3 id="G-2接下来"><a href="#G-2接下来" class="headerlink" title="G.2接下来"></a>G.2接下来</h3><h4 id="硬件电路"><a href="#硬件电路" class="headerlink" title="硬件电路"></a>硬件电路</h4><p>视觉组的培训方案出来了，但是电控和硬件还没有。我是要报硬件的啊，所以还是抓紧做一些硬件有关的事吧。设计个一带有三端的电驱板，包括电流检测功能。但实际上这个玩意有集成的芯片，只需要对这个芯片输入三路PWM，为这个芯片接上霍尔传感器，这个芯片就可以依照PWM控制电机并且通过通信协议的引脚向主控芯片传输电流信号，同时还可以通过这个协议烧固件。缺陷就是电流太小，大概只有1A，所以我打算自己做一块板子实现这些功能，当然所有的传感和程序都直接交给主控完成。</p>
 <hr>
-<center style='color:green;'> 2021/8/19 更新 </center>
+<center style='color:green;'> 2021/8/20 更新 </center>
 
-<h2 id="功率与逻辑电路"><a href="#功率与逻辑电路" class="headerlink" title="功率与逻辑电路"></a>功率与逻辑电路</h2><blockquote>
+<h2 id="T-1功率与逻辑电路"><a href="#T-1功率与逻辑电路" class="headerlink" title="T.1功率与逻辑电路"></a>T.1功率与逻辑电路</h2><blockquote>
 <h2 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h2><p>花了将近一个星期搜集各种资料，完成了无刷电驱功率与逻辑电路的设计）。打算采取的方案没有变化，驱动的电机是裸电机带霍尔传感器的，这种电机带有8根线，具体详见<a href="https://sheep200.github.io/2021/08/12/Samplingresistance/">采样电阻测电流</a>。这个电驱几乎完成了硬件上要解决的大部分功能，直接接上核心板就可以完成功能（还需要核心板上连编码器）。可以适配软件上的不同方案，达到学习算法的目的。面积是8cmX6cm，面积不大的代价就是元件排布尤为密集以至于不得不使用4层板（反正嘉立创免费），画四层板的方法还是PCB画到一半画不下去了，到B站现学的。</p>
 </blockquote>
+<p>板子布完线的样子：</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/61205b70b2a38.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">第一次做四层板</div>
+</center>
+
+<h3 id="G-0闲谈"><a href="#G-0闲谈" class="headerlink" title="G.0闲谈"></a>G.0闲谈</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
+<h3 id="G-1原理图概述"><a href="#G-1原理图概述" class="headerlink" title="G.1原理图概述"></a>G.1原理图概述</h3><p>简要描述一下我东拼西凑的一套方案吧，虽然板子还没有打出来测试，但是原理图还是可以说说的。</p>
+<h4 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h4><p>见图：<br><img src="https://www.hualigs.cn/image/61206d741d9f8.jpg" width="40%" alt=""/><br>没什么好说的，就是模拟电路的滤波电容由条件可以换成钽电容（我这里只有3.3V-A用了钽电容），数字电路一般就没有必要了，钽电容虽然纹波小一些，但对这种电路来讲没太大必要（而且钽电容很贵，那是几十倍的贵啊）<br>这里还用到了一个电压基准芯片，给运放提供基准电压的，用来实现采样电流的双向检测（当ADC采集到的电压高于基准电压时为正，小于基准电压时为负）</p>
+<h4 id="霍尔信号"><a href="#霍尔信号" class="headerlink" title="霍尔信号"></a>霍尔信号</h4><p>见图：</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/61212896f2cbb.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">霍尔信号</div>
+</center>
+
+<p>这电路一看，其实对信号没有处理，钳了个位基本上就送去单片机了。左边电机处返回的应该是开关的数字信号，直接用GPIO就可，这里的供电适配两种方案，主要是看电机上的霍尔元件的供电电压，选择3.3V或者是5V.</p>
+<h4 id="电流采样运放"><a href="#电流采样运放" class="headerlink" title="电流采样运放"></a>电流采样运放</h4><center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/612129dd36f65.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">电流采样运放</div>
+</center>
+
+<p>图中的这部分共有四组。<br>这里其实我考虑了很多的方案，最后还是选择了这个直接用运放拼的方法。立创上有很多电流感应放大器，他们都有固定的Gain值，直接选就行，价格便宜，外围电路少。但是唯一的缺点就是我找不到双向电流都能检测的电流感应放大器，其中有一款芯片手册中提到了双向检测的方法。就像下图这样：</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/61212afe96e49.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">左下角的“Bidirectional Application”</div>
+</center>
+
+<p>这TM不就是把两块芯片正反各接一个吗，这也太简单粗暴了。要是单纯的简单粗暴还好，但是注意这个方案是需要占用两个单片机ADC资源的，有点浪费。<br>况且，电流感应放大器的内部原理就是一个固定放大倍数的运放系统，不需要你配电阻了，节省空间和成本而已。用运放搭是完全没问题的。<br>于是最后就用了上面的直接运放拼的方法。后面的运放做了一个跟随，而且焊上了一个0R电阻，方便以后方案改动需要提高放大倍数时，将0R电阻替换成有阻值的电阻就可以二级放大了。</p>
+<h4 id="栅极驱动"><a href="#栅极驱动" class="headerlink" title="栅极驱动"></a>栅极驱动</h4><center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/61212d606525e.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">栅极驱动</div>
+</center>
+
+<p>本来觉得常见的这种栅极驱动的封装没有那种集成电路的感觉，有点上世纪（话说目前用到的这些都挺上世纪的），就像换一个，比如下面这种：</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/61212e0c67ddd.jpg" width="80%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">小巧 美观 令人爱不释手</div>
+</center>
+
+<p>无奈，这种芯片的价格比较贵，而且性能还比传统的2104芯片差一大截，最终还是妥协了。<br>话说回来，在回看EG2104芯片手册的时候我才发现为什么我原来放英飞凌的IR2104的位置放上EG2104就不能用了。这种芯片实际上有两个信号输入脚，SD也是可以输入控制信号完成一些事情的，但我们习惯上把它作为使能引脚并将其无情置高，IR2104这个引脚的高电平容忍度达到了20V吧。但是EG2104就比较低（毕竟没有人会用那么大的信号电压对吧），原来的电路中，我直接将12V接到了SD引脚上，IR2104可以工作，但是EG2104就被这个引脚烧坏了。</p>
+<h4 id="逆变全桥"><a href="#逆变全桥" class="headerlink" title="逆变全桥"></a>逆变全桥</h4><center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/6121301e92dbc.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">就是三个半桥</div>
+</center>
+
+<p>也是根普通的H桥驱动直流电机差不多。<br>这里有三相电压的ADC采集以及电源电压的采集，有普通的三相电流采集，还有一个总电流采集。主要是给一些提升空间和容错率，算法好的话，只用一个总电流采集就能达到效果。<br>剩下的就是接口、指示灯什么的，这块板子要向主控接的线足足有16根之多（还包括对主控进行供电）果然稚晖君将所有东西画在一块板子上是明智且高超的。</p>
+<h3 id="G-2-设计思路"><a href="#G-2-设计思路" class="headerlink" title="G.2 设计思路"></a>G.2 设计思路</h3><p>感谢学长赐予的Xmind破解版（雾），思路基本上就是用Xmind和onenote整理出来的，这里斗胆放一下我的Xmind思维导图。</p>
+<center>
+<img style="border-radius: 0.3125em;
+box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+src="https://www.hualigs.cn/image/612132a837954.jpg" width="40%" alt=""/>
+<br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 2px;">挺乱的······</div>
+</center>
+
+<p>新人设计，多多包涵~</p>
 ]]></content>
       <categories>
         <category>Hardware</category>
