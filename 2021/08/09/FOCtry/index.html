@@ -82,7 +82,7 @@
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/61205b70b2a38.jpg" width="40%" alt=""/>
+src="https://www.hualigs.cn/image/61205b70b2a38.jpg" width="70%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -92,12 +92,17 @@ padding: 2px;">第一次做四层板</div>
 
 <h3 id="G-0闲谈"><a href="#G-0闲谈" class="headerlink" title="G.0闲谈"></a>G.0闲谈</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
 <h3 id="G-1原理图概述"><a href="#G-1原理图概述" class="headerlink" title="G.1原理图概述"></a>G.1原理图概述</h3><p>简要描述一下我东拼西凑的一套方案吧，虽然板子还没有打出来测试，但是原理图还是可以说说的。</p>
-<h4 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h4><p>见图：<br><img src="https://www.hualigs.cn/image/61206d741d9f8.jpg" width="40%" alt=""/><br>没什么好说的，就是模拟电路的滤波电容由条件可以换成钽电容（我这里只有3.3V-A用了钽电容），数字电路一般就没有必要了，钽电容虽然纹波小一些，但对这种电路来讲没太大必要（而且钽电容很贵，那是几十倍的贵啊）<br>这里还用到了一个电压基准芯片，给运放提供基准电压的，用来实现采样电流的双向检测（当ADC采集到的电压高于基准电压时为正，小于基准电压时为负）</p>
+<h4 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h4><p>见图：</p>
+<center>
+<img src="https://www.hualigs.cn/image/61206d741d9f8.jpg" width="40%" alt=""/>
+</center>
+
+<p>没什么好说的，就是模拟电路的滤波电容由条件可以换成钽电容（我这里只有3.3V-A用了钽电容），数字电路一般就没有必要了，钽电容虽然纹波小一些，但对这种电路来讲没太大必要（而且钽电容很贵，那是几十倍的贵啊）<br>这里还用到了一个电压基准芯片，给运放提供基准电压的，用来实现采样电流的双向检测（当ADC采集到的电压高于基准电压时为正，小于基准电压时为负）</p>
 <h4 id="霍尔信号"><a href="#霍尔信号" class="headerlink" title="霍尔信号"></a>霍尔信号</h4><p>见图：</p>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/61212896f2cbb.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzXhlR.jpg" width="40%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -109,7 +114,7 @@ padding: 2px;">霍尔信号</div>
 <h4 id="电流采样运放"><a href="#电流采样运放" class="headerlink" title="电流采样运放"></a>电流采样运放</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/612129dd36f65.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzXywT.jpg" width="40%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -121,7 +126,7 @@ padding: 2px;">电流采样运放</div>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/61212afe96e49.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzX2Y4.jpg" width="40%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -133,7 +138,7 @@ padding: 2px;">左下角的“Bidirectional Application”</div>
 <h4 id="栅极驱动"><a href="#栅极驱动" class="headerlink" title="栅极驱动"></a>栅极驱动</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/61212d606525e.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzX6TU.jpg" width="80%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -141,11 +146,11 @@ color: #999;
 padding: 2px;">栅极驱动</div>
 </center>
 
-<p>本来觉得常见的这种栅极驱动的封装没有那种集成电路的感觉，有点上世纪（话说目前用到的这些都挺上世纪的），就像换一个，比如下面这种：</p>
+<p>本来觉得常见的这种栅极驱动的封装没有那种集成电路的感觉，有点上世纪（话说目前用到的这些都挺上世纪的），就想换一个，比如下面这种：</p>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/61212e0c67ddd.jpg" width="80%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzXsmV.jpg" width="60%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -157,7 +162,7 @@ padding: 2px;">小巧 美观 令人爱不释手</div>
 <h4 id="逆变全桥"><a href="#逆变全桥" class="headerlink" title="逆变全桥"></a>逆变全桥</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/6121301e92dbc.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzXRfJ.jpg" width="60%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
@@ -170,7 +175,7 @@ padding: 2px;">就是三个半桥</div>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="https://www.hualigs.cn/image/612132a837954.jpg" width="40%" alt=""/>
+src="https://z3.ax1x.com/2021/08/22/fzjyjI.jpg" width="80%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
