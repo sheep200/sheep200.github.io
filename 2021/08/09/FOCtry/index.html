@@ -79,12 +79,12 @@
 <li><a href="#D.">D.功率与逻辑电路</a></li>
 </ol>
 <ul>
-<li>3.1. <a href="#chat">D.1闲谈(chat)</a></li>
+<li>3.1. <a href="#chat">闲谈(chat)</a></li>
 <li>3.2. <a href="#schematicdiagramoverview">原理图概述(schematic diagram overview)</a><ul>
 <li>3.2.1. <a href="#powersource">电源(power source)</a></li>
 <li>3.2.2. <a href="#Hallsignal">霍尔信号(Hall signal)</a></li>
-<li>3.2.3. <a href="#currentsampling">D.2.3电流采样运放(current sampling)</a></li>
-<li>3.2.4. <a href="#girddriver">D.2.4栅极驱动(gird driver)</a></li>
+<li>3.2.3. <a href="#currentsampling">电流采样运放(current sampling)</a></li>
+<li>3.2.4. <a href="#girddriver">栅极驱动(gird driver)</a></li>
 <li>3.2.5. <a href="#H-bridgeinverter">逆变全桥(H-bridge inverter)</a></li>
 </ul>
 </li>
@@ -125,7 +125,7 @@ color: #999;
 padding: 2px;">第一次做四层板</div>
 </center>
 
-<h3 id="3-1-闲谈-chat"><a href="#3-1-闲谈-chat" class="headerlink" title="3.1. 闲谈(chat)"></a>3.1. <a name='D.1chat'></a>闲谈(chat)</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
+<h3 id="3-1-闲谈-chat"><a href="#3-1-闲谈-chat" class="headerlink" title="3.1. 闲谈(chat)"></a>3.1. <a name='chat'></a>闲谈(chat)</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
 <h3 id="3-2-原理图概述-schematic-diagram-overview"><a href="#3-2-原理图概述-schematic-diagram-overview" class="headerlink" title="3.2. 原理图概述(schematic diagram overview)"></a>3.2. <a name='schematicdiagramoverview'></a>原理图概述(schematic diagram overview)</h3><p>简要描述一下我东拼西凑的一套方案吧，虽然板子还没有打出来测试，但是原理图还是可以说说的。</p>
 <h4 id="3-2-1-电源-power-source"><a href="#3-2-1-电源-power-source" class="headerlink" title="3.2.1. 电源(power source)"></a>3.2.1. <a name='powersource'></a>电源(power source)</h4><p>见图：</p>
 <center>
@@ -146,7 +146,7 @@ padding: 2px;">霍尔信号</div>
 </center>
 
 <p>这电路一看，其实对信号没有处理，钳了个位基本上就送去单片机了。左边电机处返回的应该是开关的数字信号，直接用GPIO就可，这里的供电适配两种方案，主要是看电机上的霍尔元件的供电电压，选择3.3V或者是5V.</p>
-<h4 id="3-2-3-电流采样运放-current-sampling"><a href="#3-2-3-电流采样运放-current-sampling" class="headerlink" title="3.2.3. 电流采样运放(current sampling)"></a>3.2.3. <a name='D.2.3currentsampling'></a>电流采样运放(current sampling)</h4><center>
+<h4 id="3-2-3-电流采样运放-current-sampling"><a href="#3-2-3-电流采样运放-current-sampling" class="headerlink" title="3.2.3. 电流采样运放(current sampling)"></a>3.2.3. <a name='currentsampling'></a>电流采样运放(current sampling)</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
 src="https://z3.ax1x.com/2021/08/22/fzXywT.jpg" width="40%" alt=""/>
@@ -170,7 +170,7 @@ padding: 2px;">左下角的“Bidirectional Application”</div>
 </center>
 
 <p>这TM不就是把两块芯片正反各接一个吗，这也太简单粗暴了。要是单纯的简单粗暴还好，但是注意这个方案是需要占用两个单片机ADC资源的，有点浪费。<br>况且，电流感应放大器的内部原理就是一个固定放大倍数的运放系统，不需要你配电阻了，节省空间和成本而已。用运放搭是完全没问题的。<br>于是最后就用了上面的直接运放拼的方法。后面的运放做了一个跟随，而且焊上了一个0R电阻，方便以后方案改动需要提高放大倍数时，将0R电阻替换成有阻值的电阻就可以二级放大了。</p>
-<h4 id="3-2-4-栅极驱动-gird-driver"><a href="#3-2-4-栅极驱动-gird-driver" class="headerlink" title="3.2.4. 栅极驱动(gird driver)"></a>3.2.4. <a name='D.2.4girddriver'></a>栅极驱动(gird driver)</h4><center>
+<h4 id="3-2-4-栅极驱动-gird-driver"><a href="#3-2-4-栅极驱动-gird-driver" class="headerlink" title="3.2.4. 栅极驱动(gird driver)"></a>3.2.4. <a name='girddriver'></a>栅极驱动(gird driver)</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
 src="https://z3.ax1x.com/2021/08/22/fzX6TU.jpg" width="80%" alt=""/>
