@@ -10,8 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="sheep200,"> 
-    <meta name="description" content="Field-Oriented Control
-引子回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸Python的图像处理，现在也感觉差不多,"> 
+    <meta name="description" content="Field-Oriented Control 注：BGM《更澜影》~（左上角） 
+
+引子回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸P,"> 
     <meta name="author" content="sheep200"> 
     <link rel="alternative" href="atom.xml" title="Sheep_200" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -55,62 +56,54 @@
 
         </div>
         <div class="content markdown">
-            <h1 id="Field-Oriented-Control"><a href="#Field-Oriented-Control" class="headerlink" title="Field-Oriented Control"></a>Field-Oriented Control</h1><blockquote>
+            <h1 id="Field-Oriented-Control"><a href="#Field-Oriented-Control" class="headerlink" title="Field-Oriented Control"></a>Field-Oriented Control</h1><p><sup><left style='color:gray;'> 注：BGM《更澜影》~（左上角） </left></sup></p>
+<blockquote>
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸Python的图像处理，现在也感觉差不多了。想起来之前老师说的立创上有电赛相关的内容。看到一个有关Odrive的，貌似是根据成熟的固件做的一套PCB。继续往下翻看到参考文献，发现有稚晖君的文章，毫不犹豫的点进去之后，发现是那篇关于<em><strong>FOC的知乎</strong></em>。看得我热血澎湃。不过，一个现在连在一块新单片机上配置脉冲计数都困难的我来讲，要复现绝非易事，但我还是要尝试一下~~</p>
 </blockquote>
 <!-- vscode-markdown-toc -->
 <ul>
-<li><ol>
-<li><a href="#FOChttps:zhuanlan.zhihu.comp147659820">先将稚晖君FOC神文供在这里</a></li>
-</ol>
-</li>
-<li><ol start="2">
-<li><a href="#">规划</a></li>
-</ol>
-<ul>
-<li>2.1. <a href="#C">C单片机基础功能</a></li>
-<li>2.2. <a href="#D">D功率与逻辑电路</a></li>
-<li>2.3. <a href="#O">O外设</a></li>
-<li>2.4. <a href="#A">A算法</a></li>
-<li>2.5. <a href="#G">G当前进度</a></li>
+<li><a href="#FOChttps:zhuanlan.zhihu.comp147659820">先将 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147659820">稚晖君FOC神文</a> 供在这里</a></li>
+<li><a href="#">规划</a><ul>
+<li><a href="#C">C单片机基础功能</a></li>
+<li><a href="#D">D功率与逻辑电路</a></li>
+<li><a href="#O">O外设</a></li>
+<li><a href="#A">A算法</a></li>
+<li><a href="#G">G当前进度</a></li>
 </ul>
 </li>
-<li><ol start="3">
-<li><a href="#D.">D.功率与逻辑电路</a></li>
-</ol>
-<ul>
-<li>3.1. <a href="#chat">闲谈(chat)</a></li>
-<li>3.2. <a href="#schematicdiagramoverview">原理图概述(schematic diagram overview)</a><ul>
-<li>3.2.1. <a href="#powersource">电源(power source)</a></li>
-<li>3.2.2. <a href="#Hallsignal">霍尔信号(Hall signal)</a></li>
-<li>3.2.3. <a href="#currentsampling">电流采样运放(current sampling)</a></li>
-<li>3.2.4. <a href="#girddriver">栅极驱动(gird driver)</a></li>
-<li>3.2.5. <a href="#H-bridgeinverter">逆变全桥(H-bridge inverter)</a></li>
+<li><a href="#D.">D.功率与逻辑电路</a><ul>
+<li><a href="#chat">闲谈(chat)</a></li>
+<li><a href="#schematicdiagramoverview">原理图概述(schematic diagram overview)</a><ul>
+<li><a href="#powersource">电源(power source)</a></li>
+<li><a href="#Hallsignal">霍尔信号(Hall signal)</a></li>
+<li><a href="#currentsampling">电流采样运放(current sampling)</a></li>
+<li><a href="#girddriver">栅极驱动(gird driver)</a></li>
+<li><a href="#H-bridgeinverter">逆变全桥(H-bridge inverter)</a></li>
 </ul>
 </li>
-<li>3.3. <a href="#mentalityofdesigning">设计思路(mentality of designing)</a></li>
+<li><a href="#mentalityofdesigning">设计思路(mentality of designing)</a></li>
 </ul>
 </li>
 </ul>
 <!-- vscode-markdown-toc-config
-    numbering=true
+    numbering=false
     autoSave=true
     /vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
 <center style='color:black;'> 
 
-<h2 id="1-先将-稚晖君FOC神文-供在这里"><a href="#1-先将-稚晖君FOC神文-供在这里" class="headerlink" title="1. 先将 稚晖君FOC神文 供在这里"></a>1. <a name='FOChttps:zhuanlan.zhihu.comp147659820'></a>先将 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147659820">稚晖君FOC神文</a> 供在这里</h2></center>
+<h2 id="先将-稚晖君FOC神文-供在这里"><a href="#先将-稚晖君FOC神文-供在这里" class="headerlink" title="先将 稚晖君FOC神文 供在这里"></a><a name='FOChttps:zhuanlan.zhihu.comp147659820'></a>先将 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147659820">稚晖君FOC神文</a> 供在这里</h2></center>
 
-<h2 id="2-规划"><a href="#2-规划" class="headerlink" title="2. 规划"></a>2. <a name=''></a>规划</h2><p>我打算实现的是无刷电机带编码器的版本。虽然听说了无刷电机的无感控制，我还是感觉有感的简单易懂一些。</p>
-<h3 id="2-1-C单片机基础功能"><a href="#2-1-C单片机基础功能" class="headerlink" title="2.1. C单片机基础功能"></a>2.1. <a name='C'></a>C单片机基础功能</h3><p>FOC需要大量的数学计算，因此一块趁手的单片机比较重要。做车用的单片机是英飞凌的TC264，用那块单片机的话很多事都不用愁了，像什么PWM输出，编码器，ADC都是现成的。无奈放假逃离学校的时候什么都拿了，唯独忘了那几片单片机。手头上只有几片32的开发板。<br>初步计划用那F103C8T6，早晚都要会的</p>
-<h3 id="2-2-D功率与逻辑电路"><a href="#2-2-D功率与逻辑电路" class="headerlink" title="2.2. D功率与逻辑电路"></a>2.2. <a name='D'></a>D功率与逻辑电路</h3><p>仔细看了稚晖君的文章，在功率电路上不是很复杂，感觉用半桥驱动器可以实现。之前用IR2104搭H桥，这里不过是搭了一个三相的嘛（？<br>至于电流检测，文章中也提到了采样电阻和霍尔传感器两种方法，复现就行了。</p>
-<h3 id="2-3-O外设"><a href="#2-3-O外设" class="headerlink" title="2.3. O外设"></a>2.3. <a name='O'></a>O外设</h3><p>买一个编码器在C8T6上运行，串级PID三环，速度环和位置环都需要编码器的参与。<br>其次为了显示参数，需要一块屏幕。</p>
-<h3 id="2-4-A算法"><a href="#2-4-A算法" class="headerlink" title="2.4. A算法"></a>2.4. <a name='A'></a>A算法</h3><p>软件要实现大量的数学计算，文章的中描述的倒是能看懂。不过有些操作还是需要依靠单片机的外设实现，比如配置一个并非规律的占空比输出，我目前就没有头绪(莫非用IO口模拟？就算是这样也很不好写啊)<br>总之算法边走边看吧。</p>
+<h2 id="规划"><a href="#规划" class="headerlink" title="规划"></a><a name=''></a>规划</h2><p>我打算实现的是无刷电机带编码器的版本。虽然听说了无刷电机的无感控制，我还是感觉有感的简单易懂一些。</p>
+<h3 id="C单片机基础功能"><a href="#C单片机基础功能" class="headerlink" title="C单片机基础功能"></a><a name='C'></a>C单片机基础功能</h3><p>FOC需要大量的数学计算，因此一块趁手的单片机比较重要。做车用的单片机是英飞凌的TC264，用那块单片机的话很多事都不用愁了，像什么PWM输出，编码器，ADC都是现成的。无奈放假逃离学校的时候什么都拿了，唯独忘了那几片单片机。手头上只有几片32的开发板。<br>初步计划用那F103C8T6，早晚都要会的</p>
+<h3 id="D功率与逻辑电路"><a href="#D功率与逻辑电路" class="headerlink" title="D功率与逻辑电路"></a><a name='D'></a>D功率与逻辑电路</h3><p>仔细看了稚晖君的文章，在功率电路上不是很复杂，感觉用半桥驱动器可以实现。之前用IR2104搭H桥，这里不过是搭了一个三相的嘛（？<br>至于电流检测，文章中也提到了采样电阻和霍尔传感器两种方法，复现就行了。</p>
+<h3 id="O外设"><a href="#O外设" class="headerlink" title="O外设"></a><a name='O'></a>O外设</h3><p>买一个编码器在C8T6上运行，串级PID三环，速度环和位置环都需要编码器的参与。<br>其次为了显示参数，需要一块屏幕。</p>
+<h3 id="A算法"><a href="#A算法" class="headerlink" title="A算法"></a><a name='A'></a>A算法</h3><p>软件要实现大量的数学计算，文章的中描述的倒是能看懂。不过有些操作还是需要依靠单片机的外设实现，比如配置一个并非规律的占空比输出，我目前就没有头绪(莫非用IO口模拟？就算是这样也很不好写啊)<br>总之算法边走边看吧。</p>
 <hr>
-<h3 id="2-5-G当前进度"><a href="#2-5-G当前进度" class="headerlink" title="2.5. G当前进度"></a>2.5. <a name='G'></a>G当前进度</h3><p><strong>2021/8/12</strong><br>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。<br><strong>2021/8/20</strong><br>无刷电驱板设计完成，打板和元件还没到货。</p>
+<h3 id="G当前进度"><a href="#G当前进度" class="headerlink" title="G当前进度"></a><a name='G'></a>G当前进度</h3><p><strong>2021/8/12</strong><br>学习了一段时间Cube,用Cube做GPIO,ADC,UART都挺容易的，无奈没有调试工具，只有一块32ZET6的板子上自带了USB转TTL，好歹能做到数据收发。又花了一些时间在RTT上，但是最终没能将程序融进去，各种头文件乱飞，不是没定义就是重复定义。还是放弃RTT了，我做一个电机驱动也用不到那玩意。<br>买了一些调试工具和屏幕，等到了再继续吧。<br><strong>2021/8/20</strong><br>无刷电驱板设计完成，打板和元件还没到货。</p>
 <hr>
-<h2 id="3-D-功率与逻辑电路"><a href="#3-D-功率与逻辑电路" class="headerlink" title="3. D.功率与逻辑电路"></a>3. <a name='D.'></a>D.功率与逻辑电路</h2><blockquote>
+<h2 id="D-功率与逻辑电路"><a href="#D-功率与逻辑电路" class="headerlink" title="D.功率与逻辑电路"></a><a name='D.'></a>D.功率与逻辑电路</h2><blockquote>
 <h2 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h2><p>花了将近一个星期搜集各种资料，完成了无刷电驱功率与逻辑电路的设计）。打算采取的方案没有变化，驱动的电机是裸电机带霍尔传感器的，这种电机带有8根线，具体详见<a href="https://sheep200.github.io/2021/08/12/Samplingresistance/">采样电阻测电流</a>。这个电驱几乎完成了硬件上要解决的大部分功能，直接接上核心板就可以完成功能（还需要核心板上连编码器）。可以适配软件上的不同方案，达到学习算法的目的。面积是8cmX6cm，面积不大的代价就是元件排布尤为密集以至于不得不使用4层板（反正嘉立创免费），画四层板的方法还是PCB画到一半画不下去了，到B站现学的。</p>
 </blockquote>
 <p>板子布完线的样子：</p>
@@ -125,15 +118,15 @@ color: #999;
 padding: 2px;">第一次做四层板</div>
 </center>
 
-<h3 id="3-1-闲谈-chat"><a href="#3-1-闲谈-chat" class="headerlink" title="3.1. 闲谈(chat)"></a>3.1. <a name='chat'></a>闲谈(chat)</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
-<h3 id="3-2-原理图概述-schematic-diagram-overview"><a href="#3-2-原理图概述-schematic-diagram-overview" class="headerlink" title="3.2. 原理图概述(schematic diagram overview)"></a>3.2. <a name='schematicdiagramoverview'></a>原理图概述(schematic diagram overview)</h3><p>简要描述一下我东拼西凑的一套方案吧，虽然板子还没有打出来测试，但是原理图还是可以说说的。</p>
-<h4 id="3-2-1-电源-power-source"><a href="#3-2-1-电源-power-source" class="headerlink" title="3.2.1. 电源(power source)"></a>3.2.1. <a name='powersource'></a>电源(power source)</h4><p>见图：</p>
+<h3 id="闲谈-chat"><a href="#闲谈-chat" class="headerlink" title="闲谈(chat)"></a><a name='chat'></a>闲谈(chat)</h3><p>我做的这个这块板子上不自带主控芯片，并且只能驱动一个无刷电机（关于为什么稚晖君能在跟我差不多大的板子上集成主控芯片，屏幕，同时驱动两个无刷电机和两个舵机你自己去问他啊！）不过有一说一，立创上确实找到过一种芯片，drv系列的，这种芯片就是专门的无刷电机驱动芯片。与那种高度集成的功率芯片不同，这种芯片仅集成了逻辑电路部分，功率部分还是采用外置的MOS管之类的，但是重要的是，它的集成度很高，一块1.5cm长的drv8301集成了3个栅极驱动芯片和两路的电流感应放大，这已经能满足驱动一个无刷电机的电流采集要求和栅极驱动要求了，并且有的这种芯片是可以5V供电的，也就是说，它还内置了一个DCDC升压电源用来驱动MOS管。这个系列还有很多版本，长的都跟单片机差不多，但他们都有一个特点，就是根本没货。但我想，这种芯片肯定有替代型号，或者淘宝上也会有，瞄到一眼稚晖君的原理图，他肯定是用了类似的芯片的。</p>
+<h3 id="原理图概述-schematic-diagram-overview"><a href="#原理图概述-schematic-diagram-overview" class="headerlink" title="原理图概述(schematic diagram overview)"></a><a name='schematicdiagramoverview'></a>原理图概述(schematic diagram overview)</h3><p>简要描述一下我东拼西凑的一套方案吧，虽然板子还没有打出来测试，但是原理图还是可以说说的。</p>
+<h4 id="电源-power-source"><a href="#电源-power-source" class="headerlink" title="电源(power source)"></a><a name='powersource'></a>电源(power source)</h4><p>见图：</p>
 <center>
 <img src="https://www.hualigs.cn/image/61206d741d9f8.jpg" width="40%" alt=""/>
 </center>
 
 <p>没什么好说的，就是模拟电路的滤波电容由条件可以换成钽电容（我这里只有3.3V-A用了钽电容），数字电路一般就没有必要了，钽电容虽然纹波小一些，但对这种电路来讲没太大必要（而且钽电容很贵，那是几十倍的贵啊）<br>这里还用到了一个电压基准芯片，给运放提供基准电压的，用来实现采样电流的双向检测（当ADC采集到的电压高于基准电压时为正，小于基准电压时为负）</p>
-<h4 id="3-2-2-霍尔信号-Hall-signal"><a href="#3-2-2-霍尔信号-Hall-signal" class="headerlink" title="3.2.2. 霍尔信号(Hall signal)"></a>3.2.2. <a name='Hallsignal'></a>霍尔信号(Hall signal)</h4><p>见图：</p>
+<h4 id="霍尔信号-Hall-signal"><a href="#霍尔信号-Hall-signal" class="headerlink" title="霍尔信号(Hall signal)"></a><a name='Hallsignal'></a>霍尔信号(Hall signal)</h4><p>见图：</p>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -146,7 +139,7 @@ padding: 2px;">霍尔信号</div>
 </center>
 
 <p>这电路一看，其实对信号没有处理，钳了个位基本上就送去单片机了。左边电机处返回的应该是开关的数字信号，直接用GPIO就可，这里的供电适配两种方案，主要是看电机上的霍尔元件的供电电压，选择3.3V或者是5V.</p>
-<h4 id="3-2-3-电流采样运放-current-sampling"><a href="#3-2-3-电流采样运放-current-sampling" class="headerlink" title="3.2.3. 电流采样运放(current sampling)"></a>3.2.3. <a name='currentsampling'></a>电流采样运放(current sampling)</h4><center>
+<h4 id="电流采样运放-current-sampling"><a href="#电流采样运放-current-sampling" class="headerlink" title="电流采样运放(current sampling)"></a><a name='currentsampling'></a>电流采样运放(current sampling)</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
 src="https://z3.ax1x.com/2021/08/22/fzXywT.jpg" width="40%" alt=""/>
@@ -170,7 +163,7 @@ padding: 2px;">左下角的“Bidirectional Application”</div>
 </center>
 
 <p>这TM不就是把两块芯片正反各接一个吗，这也太简单粗暴了。要是单纯的简单粗暴还好，但是注意这个方案是需要占用两个单片机ADC资源的，有点浪费。<br>况且，电流感应放大器的内部原理就是一个固定放大倍数的运放系统，不需要你配电阻了，节省空间和成本而已。用运放搭是完全没问题的。<br>于是最后就用了上面的直接运放拼的方法。后面的运放做了一个跟随，而且焊上了一个0R电阻，方便以后方案改动需要提高放大倍数时，将0R电阻替换成有阻值的电阻就可以二级放大了。</p>
-<h4 id="3-2-4-栅极驱动-gird-driver"><a href="#3-2-4-栅极驱动-gird-driver" class="headerlink" title="3.2.4. 栅极驱动(gird driver)"></a>3.2.4. <a name='girddriver'></a>栅极驱动(gird driver)</h4><center>
+<h4 id="栅极驱动-gird-driver"><a href="#栅极驱动-gird-driver" class="headerlink" title="栅极驱动(gird driver)"></a><a name='girddriver'></a>栅极驱动(gird driver)</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
 src="https://z3.ax1x.com/2021/08/22/fzX6TU.jpg" width="80%" alt=""/>
@@ -194,7 +187,7 @@ padding: 2px;">小巧 美观 令人爱不释手</div>
 </center>
 
 <p>无奈，这种芯片的价格比较贵，而且性能还比传统的2104芯片差一大截，最终还是妥协了。<br>话说回来，在回看EG2104芯片手册的时候我才发现为什么我原来放英飞凌的IR2104的位置放上EG2104就不能用了。这种芯片实际上有两个信号输入脚，SD也是可以输入控制信号完成一些事情的，但我们习惯上把它作为使能引脚并将其无情置高，IR2104这个引脚的高电平容忍度达到了20V吧。但是EG2104就比较低（毕竟没有人会用那么大的信号电压对吧），原来的电路中，我直接将12V接到了SD引脚上，IR2104可以工作，但是EG2104就被这个引脚烧坏了。</p>
-<h4 id="3-2-5-逆变全桥-H-bridge-inverter"><a href="#3-2-5-逆变全桥-H-bridge-inverter" class="headerlink" title="3.2.5. 逆变全桥(H-bridge inverter)"></a>3.2.5. <a name='H-bridgeinverter'></a>逆变全桥(H-bridge inverter)</h4><center>
+<h4 id="逆变全桥-H-bridge-inverter"><a href="#逆变全桥-H-bridge-inverter" class="headerlink" title="逆变全桥(H-bridge inverter)"></a><a name='H-bridgeinverter'></a>逆变全桥(H-bridge inverter)</h4><center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
 src="https://z3.ax1x.com/2021/08/22/fzXRfJ.jpg" width="60%" alt=""/>
@@ -206,7 +199,7 @@ padding: 2px;">就是三个半桥</div>
 </center>
 
 <p>也是根普通的H桥驱动直流电机差不多。<br>这里有三相电压的ADC采集以及电源电压的采集，有普通的三相电流采集，还有一个总电流采集。主要是给一些提升空间和容错率，算法好的话，只用一个总电流采集就能达到效果。<br>剩下的就是接口、指示灯什么的，这块板子要向主控接的线足足有16根之多（还包括对主控进行供电）果然稚晖君将所有东西画在一块板子上是明智且高超的。</p>
-<h3 id="3-3-设计思路-mentality-of-designing"><a href="#3-3-设计思路-mentality-of-designing" class="headerlink" title="3.3. 设计思路(mentality of designing)"></a>3.3. <a name='mentalityofdesigning'></a>设计思路(mentality of designing)</h3><p>感谢学长赐予的Xmind破解版（雾），思路基本上就是用Xmind和onenote整理出来的，这里斗胆放一下我的Xmind思维导图。</p>
+<h3 id="设计思路-mentality-of-designing"><a href="#设计思路-mentality-of-designing" class="headerlink" title="设计思路(mentality of designing)"></a><a name='mentalityofdesigning'></a>设计思路(mentality of designing)</h3><p>感谢学长赐予的Xmind破解版（雾），思路基本上就是用Xmind和onenote整理出来的，这里斗胆放一下我的Xmind思维导图。</p>
 <center>
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -222,7 +215,7 @@ padding: 2px;">挺乱的······</div>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="http://link.hhtjim.com/163/425570952.mp3">
+                <source type="audio/mpeg" src="https://link.hhtjim.com/163/1818074345.mp3">
             </audio>
             
         </div>

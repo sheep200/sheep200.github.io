@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>python基础学习 - Sheep_200</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="sheep200,"> 
+    <meta name="description" content="
+
+基础语法Pivot Grammar
+库Library
+Pandas
+glob
+
+
+其他else
+
+
+
+
+ 注：BGM《Till the Bell Tolls》~（左上角） 
+
+引子大一暑假还余了,"> 
+    <meta name="author" content="sheep200"> 
+    <link rel="alternative" href="atom.xml" title="Sheep_200" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Sheep_200</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://sheep200.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">python基础学习</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">python基础学习</h1>
+        <div class="stuff">
+            <span>八月 26, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <!-- vscode-markdown-toc -->
+<ul>
+<li><a href="#PivotGrammar">基础语法Pivot Grammar</a></li>
+<li><a href="#Library">库Library</a><ul>
+<li><a href="#Pandas">Pandas</a></li>
+<li><a href="#glob">glob</a></li>
+</ul>
+</li>
+<li><a href="#else">其他else</a></li>
+</ul>
+<!-- vscode-markdown-toc-config
+    numbering=false
+    autoSave=true
+    /vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+<p><sup><left style='color:gray;'> 注：BGM《Till the Bell Tolls》~（左上角） </left></sup></p>
+<blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>大一暑假还余了几天，画完了FOC板子之后，本应该继续学习单片机程序，好做出真正的FOC控制来。但是一来有一些开学前的事情要处理，比如志愿活动巴拉巴拉，另外一方面就是懒了，觉得在家没有什么设备，各种功能测试起来都非常地麻烦。况且，如果不用32的单片机做控制核心的话，TC264和TC364的底层都是现成的。既然如此，何不用剩下的时间弄点有意思的事情呢？好巧不巧，前两天在为新生硬件考核做准备的时候，接触到了用python处理excle自动批改试卷的程序。我就有趁此机会学学python，拿这个程序练手。</p>
+</blockquote>
+<p>我感觉上，Python学完基础语法之后就可以开始看库了。库应当是Python程序中非常重要的东西。所以接下来也会涉及到各种库，会比较表面就是了······</p>
+<h2 id="基础语法Pivot-Grammar"><a href="#基础语法Pivot-Grammar" class="headerlink" title="基础语法Pivot Grammar"></a><a name='PivotGrammar'></a>基础语法Pivot Grammar</h2><p>不需要我多说，网上早有非常详尽的<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-basic-syntax.html">Python基础语法教程</a><br>Python确实根C语言大不相同。</p>
+<h2 id="库Library"><a href="#库Library" class="headerlink" title="库Library"></a><a name='Library'></a>库Library</h2><h3 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a><a name='Pandas'></a>Pandas</h3><p>简单来说，Pandas是用来处理关系型，标记型数据的。这里用它的函数来处理excel</p>
+<p>Pandas有自己的<a target="_blank" rel="noopener" href="https://www.pypandas.cn/docs/getting_started/">Pandas中文网</a>，上面也有比较详细的讲解。不过要查单个函数的作用，其实我还是推荐直接上网查函数名，有时候会更易懂一些。</p>
+<h3 id="glob"><a href="#glob" class="headerlink" title="glob"></a><a name='glob'></a>glob</h3><p>glob是Python下自带的文件操作模块，用它可以查找符合自己目的的文件，类似于Windows下的文件搜索。<br>使用前需要<code>import glob</code>.<br>1.<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/05fc1f66974b">glob.glob()</a><br>作用是将一个文件夹中的符合条件的文件的地址收集起来并返回一个列表。<br>如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Answer_Paths = glob.glob(<span class="string">&#x27;AnswerSheet/*.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="其他else"><a href="#其他else" class="headerlink" title="其他else"></a><a name='else'></a>其他else</h2><p><left style='color:green;'> Format函数 </left><br>字符串转换函数，见<a target="_blank" rel="noopener" href="https://baike.sogou.com/v469288.htm?fromTitle=Format%E5%87%BD%E6%95%B0">搜狗解释</a><br>使用示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;您岛上共有&#123;&#125;位干员&quot;</span>.<span class="built_in">format</span>(able_officer))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;正在审核&quot;</span>,Name,<span class="string">&quot;的简历&quot;</span>,<span class="string">&quot;当前进度:&#123;&#125;/&#123;&#125;==========&quot;</span>.<span class="built_in">format</span>(officer_Num,Nums))</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="https://link.hhtjim.com/163/1809117428.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
