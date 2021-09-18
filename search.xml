@@ -6,7 +6,7 @@
     <content><![CDATA[<h2 id="Welcome-gods"><a href="#Welcome-gods" class="headerlink" title="Welcome gods!"></a>Welcome gods!</h2><h3 id="LF-mac"><a href="#LF-mac" class="headerlink" title="LF.mac"></a>LF.mac</h3><h3 id="luv-letters"><a href="#luv-letters" class="headerlink" title="luv_letters"></a><a href="https://dancekey.github.io/">luv_letters</a></h3><h3 id="Vanassian"><a href="#Vanassian" class="headerlink" title="Vanassian"></a><a href="https://vanassian.github.io/">Vanassian</a></h3><p>芜湖！</p>
 ]]></content>
       <categories>
-        <category>gods</category>
+        <category>other</category>
       </categories>
       <tags>
         <tag>gods!</tag>
@@ -296,7 +296,7 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
 
 ]]></content>
       <categories>
-        <category>blog</category>
+        <category>other</category>
       </categories>
       <tags>
         <tag>blog</tag>
@@ -307,7 +307,7 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
     <url>/2021/08/04/wenthome/</url>
     <content><![CDATA[<h2 id="到家了，真不错"><a href="#到家了，真不错" class="headerlink" title="到家了，真不错~"></a>到家了，真不错~</h2>]]></content>
       <categories>
-        <category>home</category>
+        <category>other</category>
       </categories>
       <tags>
         <tag>relax</tag>
@@ -316,7 +316,10 @@ padding: 2px;">看“板”娘——雷蛇小姐</div>
   <entry>
     <title>制作FOC驱动器（持续更新）</title>
     <url>/2021/08/09/FOCtry/</url>
-    <content><![CDATA[<h1 id="Field-Oriented-Control"><a href="#Field-Oriented-Control" class="headerlink" title="Field-Oriented Control"></a>Field-Oriented Control</h1><p><sup><left style='color:gray;'> 注：BGM《更澜影》~（左上角） </left></sup></p>
+    <content><![CDATA[<h1 id="Field-Oriented-Control"><a href="#Field-Oriented-Control" class="headerlink" title="Field-Oriented Control"></a>Field-Oriented Control</h1><sup>
+    <left style='color:gray;'> 注：BGM《更澜影》~（左上角） </left>
+</sup>
+
 <blockquote>
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>回到家将近一个星期了，头两天做了个略显草率的电源板，因为实在是为了准备一下电赛嘛。趁着电源板没有到货，摸了摸Python的图像处理，现在也感觉差不多了。想起来之前老师说的立创上有电赛相关的内容。看到一个有关Odrive的，貌似是根据成熟的固件做的一套PCB。继续往下翻看到参考文献，发现有稚晖君的文章，毫不犹豫的点进去之后，发现是那篇关于<em><strong>FOC的知乎</strong></em>。看得我热血澎湃。不过，一个现在连在一块新单片机上配置脉冲计数都困难的我来讲，要复现绝非易事，但我还是要尝试一下~~</p>
 </blockquote>
@@ -561,6 +564,29 @@ padding: 2px;">挺乱的······</div>
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BSP RTT学习之旅</title>
+    <url>/2021/09/13/rtt-bsp/</url>
+    <content><![CDATA[<h1 id="Board-Support-Package-板级支持包"><a href="#Board-Support-Package-板级支持包" class="headerlink" title="Board Support Package 板级支持包"></a>Board Support Package 板级支持包</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>大二开学有将近一周时间了，视觉组的培训在暑假期间就基本结束了，开学这一周主要是电控组培训（然而硬件组培训还是没有任何消息······）<br>电控组培训的大概内容就是：基于RT-thread，驱动一个can设备（要求双向通信，这个can设备其实就是大疆的钞能力电机），并且依据电机返回的电流、转速和位置信息设计串级PID，完成对电机转角的精确控制。看上去很美好，是个人都眼馋，无奈学长提供的硬件不多，而且大疆C板还被弄坏了一个。我好不容易配出来了大疆C板的BSP，刚把程序烧进去，运行试了一下，板子就被软件同学撸走了。别说什么串级PID了，就连调通can设备都困难。于是我一想干脆不跟他们抢了，我配一个自己STM32开发板上能用的BSP自己玩去了。</p>
+</blockquote>
+<h2 id="RT-thread"><a href="#RT-thread" class="headerlink" title="RT-thread"></a>RT-thread</h2><h3 id="BSP配置"><a href="#BSP配置" class="headerlink" title="BSP配置"></a>BSP配置</h3><p>BSP学长学姐就帮了大忙了，没有那些资料我连RT-thread需要BSP都不知道(我菜死了)······<br>RTT官方已经非常清楚的写出了<a href="https://gitee.com/rtthread/rt-thread/tree/gitee_master/bsp/stm32/docs">BSP的配置方法</a>了。参数的设置要根据单片机的型号来确定，最典型的就是Flash大小和sram大小。这两个参数还涉及到地址的起始点的问题，RTT默认的起始位置我用起来也就没问题。<br>关于大疆C板的配置的方法有一个单独的文档，跟RTT的官方文档大同小异，不过这属于实验室的内部资料就不给链接了。<br>除此之外，RTT还有一个<a href="https://www.rt-thread.org/document/site/#/">RT-thread学习文档</a>，主要是为调通外设和线程调度服务的，不过在这里也可以看一下，至少配BSP的时候不会稀里糊涂的。<br>其中需要注意的一点就是单片机外设的配置，比如ADC、PWM之类的，官方文档也写的比较清楚。<br>添加BSP单片机外设时，按照重新生成工程的路子走，然后重新添加一下工程的include路径就行了（也许在样例工程中改好，生成的工程也就不用填了呢？）</p>
+<h3 id="Thread创建与调度"><a href="#Thread创建与调度" class="headerlink" title="Thread创建与调度"></a>Thread创建与调度</h3><p>基本上是按照单片机课程上讲解的方法去设置的，基本的调度没出什么差错。具体线程间通信等等还是指路官方文档。<br>但实际上，还是全局变量比较简单好使。</p>
+<h2 id="外设-perpheral"><a href="#外设-perpheral" class="headerlink" title="外设-perpheral"></a>外设-perpheral</h2><h3 id="无线串口-uart"><a href="#无线串口-uart" class="headerlink" title="无线串口-uart"></a>无线串口-uart</h3><p>无线串口我是配来发送数据的，后来调电机的时候用这个生成波形图。（但是效果极差，不知道为啥）<br><left style='color:green;'> KEYconfig </left><br>待补</p>
+<h3 id="PWM外设"><a href="#PWM外设" class="headerlink" title="PWM外设"></a>PWM外设</h3><p>用来驱动舵机<br><left style='color:green;'> KEYconfig </left><br>待补</p>
+<h3 id="LCD液晶屏"><a href="#LCD液晶屏" class="headerlink" title="LCD液晶屏"></a>LCD液晶屏</h3><p>使用LCD液晶屏的例程驱动，需要修改其中的delay，而且这个例程的Pin口不太好改，都定义实在了。<br>这个外设不需要KEYconfig，直接将用到的GPIO配置成输入或者输出就行。</p>
+<h3 id="PS2手柄"><a href="#PS2手柄" class="headerlink" title="PS2手柄"></a>PS2手柄</h3><p>看懂了之后只需要两个文件就可以驱动，需要修改Pin口和高低电平的函数。<br>只不过，这个手柄的性能实在是太差了，反应慢不说，还总是断连，模拟值还不准，动不动就到底了。<br>调参是不太现实的，最多能修改一个状态量。</p>
+<h3 id="钞能力CAN电机"><a href="#钞能力CAN电机" class="headerlink" title="钞能力CAN电机"></a>钞能力CAN电机</h3><p>这个主要是CAN通信的配置。<br>CAN通信需要一个外设芯片来处理电平，这个模块淘宝20块钱就可以买到一个不错的，还带有数据收发指示灯。<br>配置流程还是没差，CubeMX,KEYconfig,RTT文档。<br><left style='color:green;'> KEYconfig </left><br>待补<br>主要的RTT文档一般是问题比较大的地方，需要创建另一个线程来处理CAN数据的接收，另外CAN在发送的时候格式也限定得死死的。<br>CAN是可以同时与多个设备通信的，好像是说CAN主机向所有设备发送的数据都是一样的，但是接收的时候需要设置硬件过滤表来分辨不同的设备。目前还没有仔细研究过这个东西。<br>这个电机另一个需要注意的地方就是数据格式，发回来的数据是一个8个元素的uint8_t数组，这个数组每两位表示一个short，收回来之后需要进行一个位运算才能变成正常的值。</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>MCCM</tag>
+        <tag>Rt-thread</tag>
+        <tag>BSP</tag>
       </tags>
   </entry>
 </search>
