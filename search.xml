@@ -611,6 +611,7 @@ src="https://i.loli.net/2021/09/19/htjfXSQD9E5nWFp.jpg" width="40%" alt=""/>
 <br>
 <div style="color:orange; border-bottom: 1px solid #d9d9d9;
 display: inline-block;
+-
 color: #999;
 padding: 2px;">按键板</div>
 </center>
@@ -633,6 +634,41 @@ padding: 2px;">显示效果</div>
         <tag>MCCM</tag>
         <tag>Rt-thread</tag>
         <tag>BSP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>装机二三事</title>
+    <url>/2021/09/21/assemblePC/</url>
+    <content><![CDATA[<h1 id="build-our-own-computer"><a href="#build-our-own-computer" class="headerlink" title="build our own computer"></a>build our own computer</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>大二开学俩星期了，想起来寒假结束之时拿家里的垃圾装了两台电脑，还没总结点什么。再加上这个中秋节，在实验室花了两天时间收拾东西，翻出来一块电脑主板。睹物生情，那么就聊聊装机二三事吧~</p>
+</blockquote>
+<h2 id="识零件"><a href="#识零件" class="headerlink" title="识零件"></a>识零件</h2><p>大体上来讲，装一台电脑需要以下几个东西：电脑主板（带风扇）、CPU，内存、显示器、电源、硬盘（固态、机械）、显卡（看主板可以没有）、光驱（看需求可以没有）、声卡（看需求可以没有）、网卡（一般主板集成）。<br>什么？你问我机箱？要什么机箱？鞋盒不能用吗？！</p>
+<p>下面按照装电脑的顺序来逐一介绍各个配件（顺序可供参考）</p>
+<h3 id="主板"><a href="#主板" class="headerlink" title="主板"></a>主板</h3><p>通用主板一般有两种型号，一种是长方形，有六个固定孔；还有一种几乎为正方形，只有四个固定孔。主办的大小一般影响不是很大，主要还是看上面的接口是否满足需要。</p>
+<h4 id="小接口"><a href="#小接口" class="headerlink" title="小接口"></a>小接口</h4><p>为什么称为小接口呢？因为他们很小。<br><strong>固定孔</strong><br>一般主板有4种尺寸，M-ATX（紧凑型）、ATX（标准型）、E-ATX（加强型）、MINI-ITX（迷你型）。最常见的就是ATX和M-ATX了，前者为标准的305mm - 244mm ,后者则为 244mm 的正方形。分别有6个和四个固定孔。<br>固定孔直接拿螺丝拧上就行，之后所有的操作都只需要一把十字的螺丝刀就搞定。<br>大机箱可以兼容小板子，反之自然不行。<br>还存在尺寸更小的型号以及特制电脑的主板，看上去就跟一块野火探索者差不多。不过有一说一，有些厂家生产的“特制电脑”内部结构十分惊艳，可以搭配市面上一些常见的零件的同时空间利用非常紧凑，通风又到位，实属视觉享受。<br>PS：有幸拆过和RM服务器一样的服务器主机，这个就很典型。</p>
+<p><strong>主板供电接口</strong><br>主板上会有20针或24针的插槽，用于连接电源为主板供电。一般长下面这个样子。<br><img src="https://i.loli.net/2021/09/23/Xkj6KN3zsphdMiH.jpg" width="40%" alt=""/><br><img src="https://i.loli.net/2021/09/23/SFp7tTYOhgDIxyR.jpg" width="40%" alt=""/></p>
+<p>一般24针的主板比较主流，性能高一些。一般的电源两种供电接口都会适配，电源引出的主板供电线会分成两股，一股20针，另一股4针，拼在一起就可以插进24针的槽里了。</p>
+<p><strong>CPU供电接口</strong><br><img src="https://i.loli.net/2021/09/23/78lTVwWYAHes2xf.jpg" width="40%" alt=""/><br>CPU的功率很大，主板的电压可能吃不消，所以就单独供电了。部分丧心病狂的CPU甚至会给两个CPU供电接口，功率可想而知(大部分CPU运行起来有几十A的电流，部分可以上百)<br><img src="https://i.loli.net/2021/09/23/9iVlasS2t3MCYPg.jpg" width="40%" alt=""/><br>上图中可以看到CPU附近有一排电容和线圈，主要是为CPU这种高频器件的电源滤波的。一般看主板这种电容阵列越壮观越好，并且电容组的质量还会影响到这块主板上CPU的超频能力。</p>
+<p><strong>机箱接口</strong><br>机箱上会有什么呢？答案就是开关！（废话）<br>连接机箱最主要的接口就是电源开关（POWER SW），复位开关（常说的重启键 RESET），硬盘指示灯（HD_LED 不知道为什么这个灯的地位这么高······）<br>这是实验室翻出来的那块板子上的接口：<br><img src="https://i.loli.net/2021/09/23/OZAtr6PTRKLqSfC.jpg" width="40%" alt=""/><br>这个接口就负责上面三项。<br>最右边落单的杜邦线不用接，然后剩下8个左右相邻的为一组，左边两组都是硬盘灯（看机箱有几个硬盘灯了，注意LED正负极），右边下面的为复位，右上为电源，这两个没有正负极。</p>
+<p>除此之外，机箱为了方便USB设备的使用，会在机箱上设置几个USB接口，以免每次插USB的时候都要跑到机箱后面去。<br><img src="https://i.loli.net/2021/09/23/eU8bnzuLcKBZdh3.jpg" width="40%" alt=""/><br>PS：遇到主板上出现有的排针的针脚消失的情况不要慌张（买回来的新主板当然不会慌张，这句话是对新手垃圾佬说的）消失的针脚是为了防反接的（刚才那个多出来的落单引脚也是同理）</p>
+<p>很多机箱还会带有音频口，道理同USB，避免为了插个耳机钻到电脑屁股后面去。<br><img src="https://i.loli.net/2021/09/23/6wbUeOtpnGxDNTa.jpg" width="40%" alt=""/><br>跟USB一样是一整块引线，还有防反接。</p>
+<p>部分机箱还带有很多七七八八的功能，比如机箱上自带一个显示屏，而且有CPU温度探头和机箱风扇转速检测，各种参数在显示屏上显示的。这个时候需要把温度探头插到CPU散热片里面，转速检测器与风扇的供电相连（通过电压看转速，前提是机箱上自带的风扇），然后电源需要单独为机箱供电。<br>PS：鄙人家里一台古老的客厅电脑就有这些神奇功能，并且外观是平放在桌子上的，很像早些年的DVD机。</p>
+<h4 id="内存插槽"><a href="#内存插槽" class="headerlink" title="内存插槽"></a>内存插槽</h4><img src="https://i.loli.net/2021/09/23/FYLRByQxkW8ej9Z.jpg" width="40%" alt=""/>
+
+<p>内存非常重要，是决定显示屏是否能点亮的两大关键因素之一。（另一个是显卡，但这个很少出问题）<br>内存经过多次迭代，插槽也有较多种类，不过整体形状没变化太多，只是金手指的分布有些许变化。<br>这样也是为了防止频率相差太多的内存被插上去使用。<br>下面引用一下<a href="https://wenwen.sogou.com/z/q714315215.htm">搜狗问问的回答</a></p>
+<blockquote>
+<p>主板的内存插槽有：DDR ，DDR2， DDR3 以及目前最新的DDR4类型插槽接口<br>1、DDR是最早的内存，速度慢，功耗大，电压2.5V。DDR400就是一个例子，速度是400mhz<br>2、DDR2是第二代内存，电压1.8V，速度一般都是667或800。<br>3、DDR3是目前最普遍的内存，电压1.5V，速度很快，容量也很大，单条最大可达到8GB，频率从1066-2400mhz不等。<br>4、DDR4是新一代内存，DDR4内存条外观变化明显，金手指变成弯曲状内存频率提升明显，可达4266MHz内存容量提升明显，可达128GB，功耗明显降低，电压达到1.2V、甚至更低。</p>
+</blockquote>
+<img src="https://i.loli.net/2021/09/23/6A1nC3GNfDbx5lQ.jpg" width="40%" alt=""/>
+
+<p><a href="https://zhinan.sogou.com/guide/detail/?id=316512893270">区分不同DDR的方法</a><br>实验室翻出来的主板上的内存插槽是DDR一代，我都没想到这么拉······<br>内存的迭代主要在容量和频率上，容量看需求，但频率不对的内存轻则性能下降，重则无法点亮（skr）<br>内存要根据CPU支持的内存频率以及主板支持的频率选择。</p>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p>一般来讲，CPU属于比较贵而又比较“挑”的零件。大家一般不会对CPU陌生，就是一个略有重量的金属片，底下有很多的引脚。<br>只要按照正确的方向放到主板上，用杠杆压好，上面涂一点硅脂然后盖上风扇就算组装好了（但一般将主板上的线连接得差不多得时候在装风扇，或是最后装，这玩意先装上去的话比较碍事）。</p>
+]]></content>
+      <categories>
+        <category>Hardware</category>
+      </categories>
+      <tags>
+        <tag>PC</tag>
       </tags>
   </entry>
 </search>
