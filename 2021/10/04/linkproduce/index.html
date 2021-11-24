@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>自制Link - Sheep_200</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="sheep200,"> 
+    <meta name="description" content="ST-link &amp;amp; J-link
+引子累计了很多开源工程，想逐个复现一下。正好最近完成机器人走线，就挑了一个看上去没有那么费力项目：自制ST-link。虽然还没成功（短期内也不会继续了），但,"> 
+    <meta name="author" content="sheep200"> 
+    <link rel="alternative" href="atom.xml" title="Sheep_200" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Sheep_200</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://sheep200.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">自制Link</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">自制Link</h1>
+        <div class="stuff">
+            <span>十月 04, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/J-link/" rel="tag">J-link</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/ST-link/" rel="tag">ST-link</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="ST-link-amp-J-link"><a href="#ST-link-amp-J-link" class="headerlink" title="ST-link &amp; J-link"></a>ST-link &amp; J-link</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>累计了很多开源工程，想逐个复现一下。正好最近完成机器人走线，就挑了一个看上去没有那么费力项目：自制ST-link。虽然还没成功（短期内也不会继续了），但也值得把过程记录一下，按照这个过程走，大概率是没有问题的，我这里最终没有弄好应该是硬件的问题（毕竟开发板毕竟还是不是很适配）。然后，就意识到团队里制作J-link的工艺已经很成熟了，于是就转手准备做J-link了。</p>
+</blockquote>
+<p>制作ST-link的流程比较简单。</p>
+<ol>
+<li>硬件平台</li>
+<li>烧固件</li>
+</ol>
+<p>完成！</p>
+<p>参考的是稚晖君的开源工程，这里放上<a target="_blank" rel="noopener" href="https://github.com/peng-zhihui">稚晖君的Github</a></p>
+<p>硬件平台先不管了，直接烧固件。<br>先找一个能烧程序的器件（如ST-Link），和硬件平台。<br>找到固件（.bin），用专门烧录固件的程序烧录进去。<br>然后升级固件（用专门的软件，也可以在Keil5里面升级）<br>然后就可以用了。<br>然后不行，我裂了。虽然设备管理器能识别到ST-link，但不能用。<br>出现过以下几种问题：</p>
+<ol>
+<li>固件升级程序找不到ST-link<br>卡顿一会（卡顿到Windows提示.exe未响应）之后，就出现以下报错：<blockquote>
+<p>No ST-Link found after GoToUsbLoader command. wait for the end of USB enumeration then try again.</p>
+</blockquote>
+</li>
+</ol>
+<p>但是这个报错有的时候会消失，正常升级了程序之后再卡死，然后又找不到了（合着就是刚升级完翻脸不认人了），然后再测试的时候Keil5还是会提示版本过低，笑死了。<br>使用现成的ST-link不会出现上述问题。</p>
+<ol start="2">
+<li>烧录程序找不到ST-link<br>我用的就是Utility,最基本的了。硬是出现了三种报错。<br>第一种<blockquote>
+<p>Can not connect to target! Please select “Connect Under Reset” mode from Target-&gt;Settings menu and try again.  If you’re trying to connect to a low frequency application , please select a lower SWD Frequency mode from Target-&gt;Settings menu.”</p>
+</blockquote>
+</li>
+</ol>
+<p>第二种<br>具体的报错忘记了，大意就是：我们检测到你在向一块F103的单片机烧录程序，那你就不要使用Connect Under Reset这个模式了，使用normal的模式就好了。<br>XS，刚好与第一种报错相反。</p>
+<p>第三种<br>大意为：ST-link USB连接失败。<br>最直接，就是没连上。重插就好了。</p>
+<p>用现成的ST-link不会出现上述问题。<br>对于第一种情况，有可能他说的是对的。这个时候就是在使用一些板子的时候，是需要配合ST-link的复位引脚使用的。除了要修改连接模式之外，还需要连接上ST-link和单品机的复位引脚。<a target="_blank" rel="noopener" href="https://blog.csdn.net/panxianzhan/article/details/104798641">有文在此</a></p>
+<ol start="3">
+<li><p>stm32 read out protection<br>这个是解决了的，是这个固件的保护，解决方法如下：<br>stm32-link utility中设置target-&gt;options bytes，将protection去掉，apply则可以工作了</p>
+</li>
+<li><p>ST LINK is not in the DFU mode plesse restart it<br>这个问题需要升级固件解决，而且插上ST-link就得马上升级固件，不能干其他的。<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_29891353/article/details/82778695">CSDN</a>有一篇文章有介绍。<br>不过呢，由于单纯固件升级的问题没有解决，这个问题也就无从解决。</p>
+</li>
+<li><p>Keil5无法进入Debug mode。<br>如上，就是提示无法进入这个mode。</p>
+</li>
+</ol>
+<p>大概能回忆起这么多。<br>这里还有一位兄台修ST-link的<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20222919/article/details/111631286">文章</a>,有兴趣可以看一下。</p>
+<p>J-link的事以后再说。<br>未完待续。</p>
+<p>这个项目暂停了，看看之后是否有时间继续······</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="http://link.hhtjim.com/163/425570952.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

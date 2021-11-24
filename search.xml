@@ -735,4 +735,82 @@ padding: 2px;"> 如有疏漏，敬请谅解 </div>
         <tag>PC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>自制Link</title>
+    <url>/2021/10/04/linkproduce/</url>
+    <content><![CDATA[<h1 id="ST-link-amp-J-link"><a href="#ST-link-amp-J-link" class="headerlink" title="ST-link &amp; J-link"></a>ST-link &amp; J-link</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>累计了很多开源工程，想逐个复现一下。正好最近完成机器人走线，就挑了一个看上去没有那么费力项目：自制ST-link。虽然还没成功（短期内也不会继续了），但也值得把过程记录一下，按照这个过程走，大概率是没有问题的，我这里最终没有弄好应该是硬件的问题（毕竟开发板毕竟还是不是很适配）。然后，就意识到团队里制作J-link的工艺已经很成熟了，于是就转手准备做J-link了。</p>
+</blockquote>
+<p>制作ST-link的流程比较简单。</p>
+<ol>
+<li>硬件平台</li>
+<li>烧固件</li>
+</ol>
+<p>完成！</p>
+<p>参考的是稚晖君的开源工程，这里放上<a href="https://github.com/peng-zhihui">稚晖君的Github</a></p>
+<p>硬件平台先不管了，直接烧固件。<br>先找一个能烧程序的器件（如ST-Link），和硬件平台。<br>找到固件（.bin），用专门烧录固件的程序烧录进去。<br>然后升级固件（用专门的软件，也可以在Keil5里面升级）<br>然后就可以用了。<br>然后不行，我裂了。虽然设备管理器能识别到ST-link，但不能用。<br>出现过以下几种问题：</p>
+<ol>
+<li>固件升级程序找不到ST-link<br>卡顿一会（卡顿到Windows提示.exe未响应）之后，就出现以下报错：<blockquote>
+<p>No ST-Link found after GoToUsbLoader command. wait for the end of USB enumeration then try again.</p>
+</blockquote>
+</li>
+</ol>
+<p>但是这个报错有的时候会消失，正常升级了程序之后再卡死，然后又找不到了（合着就是刚升级完翻脸不认人了），然后再测试的时候Keil5还是会提示版本过低，笑死了。<br>使用现成的ST-link不会出现上述问题。</p>
+<ol start="2">
+<li>烧录程序找不到ST-link<br>我用的就是Utility,最基本的了。硬是出现了三种报错。<br>第一种<blockquote>
+<p>Can not connect to target! Please select “Connect Under Reset” mode from Target-&gt;Settings menu and try again.  If you’re trying to connect to a low frequency application , please select a lower SWD Frequency mode from Target-&gt;Settings menu.”</p>
+</blockquote>
+</li>
+</ol>
+<p>第二种<br>具体的报错忘记了，大意就是：我们检测到你在向一块F103的单片机烧录程序，那你就不要使用Connect Under Reset这个模式了，使用normal的模式就好了。<br>XS，刚好与第一种报错相反。</p>
+<p>第三种<br>大意为：ST-link USB连接失败。<br>最直接，就是没连上。重插就好了。</p>
+<p>用现成的ST-link不会出现上述问题。<br>对于第一种情况，有可能他说的是对的。这个时候就是在使用一些板子的时候，是需要配合ST-link的复位引脚使用的。除了要修改连接模式之外，还需要连接上ST-link和单品机的复位引脚。<a href="https://blog.csdn.net/panxianzhan/article/details/104798641">有文在此</a></p>
+<ol start="3">
+<li><p>stm32 read out protection<br>这个是解决了的，是这个固件的保护，解决方法如下：<br>stm32-link utility中设置target-&gt;options bytes，将protection去掉，apply则可以工作了</p>
+</li>
+<li><p>ST LINK is not in the DFU mode plesse restart it<br>这个问题需要升级固件解决，而且插上ST-link就得马上升级固件，不能干其他的。<a href="https://blog.csdn.net/sinat_29891353/article/details/82778695">CSDN</a>有一篇文章有介绍。<br>不过呢，由于单纯固件升级的问题没有解决，这个问题也就无从解决。</p>
+</li>
+<li><p>Keil5无法进入Debug mode。<br>如上，就是提示无法进入这个mode。</p>
+</li>
+</ol>
+<p>大概能回忆起这么多。<br>这里还有一位兄台修ST-link的<a href="https://blog.csdn.net/qq_20222919/article/details/111631286">文章</a>,有兴趣可以看一下。</p>
+<p>J-link的事以后再说。<br>未完待续。</p>
+<p>这个项目暂停了，看看之后是否有时间继续······</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>ST-link</tag>
+        <tag>J-link</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流行充电方案集锦</title>
+    <url>/2021/11/01/pocketchargersolution/</url>
+    <content><![CDATA[<h1 id="Prevalent-charging-solution"><a href="#Prevalent-charging-solution" class="headerlink" title="Prevalent charging solution"></a>Prevalent charging solution</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>原本以为</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>hardware</category>
+      </categories>
+      <tags>
+        <tag>DIY</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>剪视频的一点心得</title>
+    <url>/2021/10/11/upmakingmovie/</url>
+    <content><![CDATA[<h1 id="Acquaintance-of-making-movie"><a href="#Acquaintance-of-making-movie" class="headerlink" title="Acquaintance of making movie"></a>Acquaintance of making movie</h1><blockquote>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>大二上学期一共剪了两个视频了。一个是作为“718赛务副队”的赛务新生考核视频（虽然最后一个人都没有完成），另一个是马原作业。这个马原作业的话，性质跟大计作业差不太多，但没学到什么东西（如果接受了5个小时马克思主义原理熏陶也算的话）。赛务考核倒是然我学了不少，至少会了预设转场和基本图形。这都是很重要的东西，技术不高，效果很好。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>UPUP</category>
+      </categories>
+      <tags>
+        <tag>PR</tag>
+      </tags>
+  </entry>
 </search>
